@@ -34,11 +34,28 @@
 - 새 글이 없는 탭은 "이번 기간 새 글 없음" 한 줄과 게시판 링크만 남긴다.
 - 읽기만 한다. 그룹웨어에 글 작성·댓글·삭제 등 쓰기 동작은 하지 않는다.
 
+## 2-1. 카드뉴스 (`cards` 배열)
+뉴스레터 5번째 탭의 카드뉴스는 `newsletter-data.mjs` 의 `cards` 로 만든다. 표지와 마무리 카드는 자동으로 붙는다.
+- 중요도 순(공지 → 재무 → 식단 → 기술정보·커뮤니티)으로 4~6장. 오늘 꼭 알아야 할 것만 고른다.
+- 카드 하나는 본문 형태를 하나만 쓴다: `big`(핵심 숫자) · `rows`(항목 표, 마감은 `hot:true`) · `bullets`(목록).
+- 글자가 길면 넘친다. 제목 약 14자 이내, `rows` 는 4줄 이내, `bullets` 는 3~4줄 이내로 쓴다.
+- 매일 바뀌는 카드(오늘의 점심 등)는 날짜와 메뉴를 반드시 갱신한다. 끝나면 카드 탭에서 잘린 글자가 없는지 확인한다.
+- 인사발령 같은 개인 정보는 카드에 넣지 않는다.
+- 사용자는 카드뉴스 탭에서 카드별 또는 전체를 1080×1080 PNG 로 저장한다 (서버 처리 없이 브라우저에서 변환).
+
 ## 3. 빌드 · 보관
 ```
 node build.mjs          # suresoft_newsletter.html(최신) + archive/newsletter-<발행일>.html 생성
 git add -A && git commit -m "Update newsletter <YYYY-MM-DD>"
 ```
+
+## 4. 배포 (다른 사람에게 공유)
+결과 HTML(`suresoft_newsletter.html`)은 파일 하나로 동작하므로, 공유 위치에 덮어쓰기만 하면 된다.
+1. `publish.config.example.json` 을 `publish.config.json` 으로 복사하고 `targets` 에 공유 폴더 경로(예: `\\\\서버\\공유\\newsletter`)를 적는다.
+2. 이후 `node build.mjs` 가 빌드와 함께 각 경로의 `suresoft_newsletter.html` 과 `archive/` 에 복사한다.
+3. 사용자들은 그 경로(또는 바로가기)의 `suresoft_newsletter.html` 을 열면 된다. 항상 같은 주소에서 최신본이 열린다.
+- 사내 게시글이 들어 있으므로 외부 호스팅에는 올리지 않는다. 메일 발송·게시판 첨부 등 외부로 나가는 동작은 사람이 확인한 뒤에만 한다.
+- `publish.config.json` 은 PC마다 다르므로 커밋하지 않는다 (`.gitignore` 처리됨).
 
 ## 예약 실행용 프롬프트
 > `C:\webdev\5. AI_PlayGround\REFRESH.md` 를 읽고 그 절차대로 오늘자 슈어소프트 뉴스레터를 갱신해 줘. 끝나면 변경 요약을 짧게 알려 줘.
