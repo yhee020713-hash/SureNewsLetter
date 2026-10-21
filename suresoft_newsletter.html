@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>슈어소프트 뉴스레터 2026.10.21</title>
+<style>
+  :root{
+    --teal:#00a0b9; --teal-d:#008aa1; --teal-l:#2ab8cf; --teal-s:#e3f5f8;
+    --bg:#eceff4; --surface:#fff; --ink:#2b3340; --ink2:#566070; --muted:#8c96a5; --line:#dde3ea; --soft:#f5f7fa;
+    --red:#e8533f; --red-s:#fdeeeb;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.6;
+       font-family:"Malgun Gothic","Apple SD Gothic Neo","Pretendard",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:var(--teal-d);text-decoration:none;font-weight:600}
+  a:hover{text-decoration:underline}
+  button{font:inherit;color:inherit;cursor:pointer}
+  .app{display:grid;grid-template-columns:248px 1fr;min-height:100%}
+
+  /* sidebar */
+  aside.side{background:var(--teal);color:#fff;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;padding:22px 14px 16px}
+  .brand{padding:0 10px 16px;border-bottom:1px solid rgba(255,255,255,.22)}
+  .brand .eb{font-size:10px;letter-spacing:.2em;font-weight:700;color:rgba(255,255,255,.75)}
+  .brand h1{margin:5px 0 4px;font-size:20px;letter-spacing:-.03em;line-height:1.25}
+  .brand .dt{font-size:12px;color:rgba(255,255,255,.8)}
+  nav.tabs{margin-top:14px;display:flex;flex-direction:column;gap:4px}
+  .tab{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:none;border:0;border-radius:8px;padding:10px;position:relative;transition:background .15s}
+  .tab:hover{background:rgba(255,255,255,.14)}
+  .tab .no{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font-weight:800;font-size:14px;flex:none;background:rgba(255,255,255,.2)}
+  .tab .tx{display:flex;flex-direction:column;min-width:0;flex:1}
+  .tab .tt{font-weight:700;font-size:14px}
+  .tab .ts{font-size:11.5px;color:rgba(255,255,255,.78)}
+  .tab[aria-selected="true"]{background:#fff;color:var(--teal-d);box-shadow:0 2px 8px rgba(0,60,75,.25)}
+  .tab[aria-selected="true"] .no{background:var(--teal);color:#fff}
+  .tab[aria-selected="true"] .ts{color:var(--muted)}
+  .tab .dot{width:8px;height:8px;border-radius:50%;background:var(--red);flex:none;box-shadow:0 0 0 2px var(--teal)}
+  .tab[aria-selected="true"] .dot{box-shadow:0 0 0 2px #fff}
+  .upcoming{margin-top:auto;border-top:1px solid rgba(255,255,255,.22);padding:14px 10px 0}
+  .upcoming h2{margin:0 0 8px;font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.75);font-weight:700}
+  .up{display:flex;gap:10px;align-items:baseline;margin:6px 0;font-size:12.5px;color:rgba(255,255,255,.92)}
+  .up b{font-weight:800;min-width:44px;color:#fff;font-variant-numeric:tabular-nums}
+  .up.hot b{background:var(--red);padding:0 6px;border-radius:4px;min-width:0}
+  .hint{margin-top:12px;font-size:11px;color:rgba(255,255,255,.7)}
+  .hint kbd{font:inherit;font-weight:700;padding:0 5px;border-radius:4px;background:rgba(255,255,255,.22);color:#fff}
+
+  /* content */
+  .main{min-width:0}
+  .topbar{background:var(--surface);border-bottom:1px solid var(--line);padding:0 40px;height:54px;display:flex;align-items:flex-end;justify-content:space-between}
+  .topbar .t{font-size:14px;font-weight:700;padding:0 4px 14px;border-bottom:2px solid var(--teal);color:var(--ink)}
+  .topbar .d{padding-bottom:16px;font-size:12.5px;color:var(--muted)}
+  main.content{padding:26px 40px 56px;max-width:1040px}
+  .stale{display:none;background:var(--red-s);border:1px solid #f3c2ba;color:#b13a28;border-radius:6px;padding:9px 14px;margin-bottom:16px;font-size:13px;font-weight:600}
+  .panel{display:none}
+  .panel.on{display:block;animation:fade .2s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+  .ph{display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+  .ph .big{width:44px;height:44px;border-radius:10px;background:var(--teal);color:#fff;display:grid;place-items:center;font-size:21px;font-weight:800;flex:none}
+  .ph h2{margin:0;font-size:24px;letter-spacing:-.03em;line-height:1.2}
+  .ph p{margin:1px 0 0;color:var(--muted);font-size:13px}
+  .subnav{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 16px}
+  .subnav button{border:1px solid var(--teal-l);background:var(--surface);border-radius:99px;padding:4px 13px;font-size:12.5px;font-weight:700;color:var(--teal-d)}
+  .subnav button:hover{background:var(--teal);color:#fff}
+
+  /* unified block */
+  .block{background:var(--surface);border:1.5px solid var(--teal-l);border-radius:8px;padding:18px 20px;margin-bottom:14px;scroll-margin-top:70px}
+  .bh{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+  .chip{font-size:11.5px;font-weight:800;padding:2px 10px;border-radius:99px;background:var(--teal-s);color:var(--teal-d)}
+  .new{font-size:10px;font-weight:800;color:#fff;background:var(--red);padding:2px 7px;border-radius:99px;letter-spacing:.04em}
+  .bh .date{margin-left:auto;font-size:12px;color:var(--muted)}
+  .block h3{margin:0 0 8px;font-size:17px;letter-spacing:-.03em;line-height:1.4}
+  .block p{margin:6px 0;color:var(--ink2)}
+  .block ul{margin:6px 0 0;padding-left:18px;color:var(--ink2)}
+  .block li{margin:5px 0}
+  .m{color:var(--muted);font-size:12.5px}
+  .lk{margin-top:12px;font-size:13px;padding-top:11px;border-top:1px dashed var(--line)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-bottom:14px}
+  .grid .block{margin-bottom:0}
+
+  .kd-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:16px}
+  .kd{background:var(--surface);border:1.5px solid var(--teal-l);border-radius:8px;padding:13px 15px}
+  .kd.hot{border-color:var(--red);background:var(--red-s)}
+  .kd .d{font-size:23px;font-weight:800;letter-spacing:-.03em;line-height:1.15}
+  .kd.hot .d{color:var(--red)}
+  .kd .d small{font-size:12px;font-weight:600;color:var(--muted);margin-left:4px}
+  .kd .t{margin-top:4px;font-size:12.5px;color:var(--ink2)}
+
+  .stat-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+  .stat .num{font-size:46px;font-weight:800;letter-spacing:-.05em;line-height:1;color:var(--teal)}
+  .stat .num sup{font-size:20px}
+  .stat .cap{font-size:12px;color:var(--muted);margin-top:4px}
+  .stat-row .txt{flex:1;min-width:220px}
+
+  .tw{overflow-x:auto;border:1px solid var(--line);border-radius:6px;margin-top:6px}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:500px}
+  th{background:var(--soft);text-align:left;font-weight:700;color:var(--muted);font-size:12px;padding:8px 13px}
+  td{padding:9px 13px;border-top:1px solid var(--line);vertical-align:top}
+  td.dl{font-weight:800;color:var(--red);white-space:nowrap}
+  td.pay{font-weight:700;white-space:nowrap}
+  .note{font-size:12.5px;color:var(--muted);margin-top:8px}
+
+  .menu{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:6px}
+  .day{border:1px solid var(--line);background:var(--soft);border-radius:8px;padding:10px 11px 12px}
+  .day.today{border:1.5px solid var(--teal);background:var(--teal-s)}
+  .day .dh{font-size:12px;font-weight:800;color:var(--muted)}
+  .day.today .dh{color:var(--teal-d)}
+  .day .dh em{font-style:normal;margin-left:5px;font-size:10px;background:var(--teal);color:#fff;padding:1px 6px;border-radius:99px}
+  .day dl{margin:6px 0 0}
+  .day dt{font-size:10.5px;font-weight:800;color:var(--muted);margin-top:8px}
+  .day dd{margin:1px 0 0;font-size:13px;font-weight:600;line-height:1.35}
+  .day dd.s{font-weight:500;color:var(--ink2);font-size:12.5px}
+  .tags{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 8px}
+  .tags span{font-size:12.5px;font-weight:700;padding:3px 11px;border-radius:99px;background:var(--teal-s);color:var(--teal-d)}
+
+  footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+
+  @media (max-width:860px){
+    .app{grid-template-columns:1fr}
+    aside.side{position:sticky;top:0;z-index:20;height:auto;flex-direction:row;align-items:center;padding:8px 10px;overflow-x:auto}
+    .brand,.upcoming{display:none}
+    nav.tabs{margin:0;flex-direction:row;gap:6px;width:100%}
+    .tab{flex:1;justify-content:center;padding:7px 6px;gap:7px;min-width:0}
+    .tab .ts{display:none} .tab .tx{flex:none} .tab .tt{font-size:12.5px;white-space:nowrap}
+    .tab .no{width:24px;height:24px;font-size:12px;border-radius:6px}
+    .topbar{padding:0 16px} main.content{padding:20px 16px 44px}
+    .menu{grid-template-columns:1fr 1fr}
+    .ph h2{font-size:21px}
+  }
+  @media (max-width:520px){ .tab .tx{display:none} .menu{grid-template-columns:1fr} .bh .date{margin-left:0;width:100%} }
+</style>
+</head>
+<body data-issued="2026-10-21">
+<div class="app">
+  <aside class="side">
+    <div class="brand">
+      <div class="eb">SURESOFT NEWSLETTER</div>
+      <h1>슈어소프트<br>뉴스레터</h1>
+      <div class="dt">2026.10.21 (수) · 09.15 ~ 10.21 소식</div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="뉴스레터 분류">
+  <button class="tab" role="tab" data-t="1" aria-selected="true" aria-controls="p1">
+    <span class="no">1</span><span class="tx"><span class="tt">공지사항</span><span class="ts">공지 · 재무 · 식단</span></span>
+    <span class="dot" title="새 글 있음"></span>
+  </button>
+  <button class="tab" role="tab" data-t="2" aria-selected="false" aria-controls="p2">
+    <span class="no">2</span><span class="tx"><span class="tt">정보보안/보호</span><span class="ts">보안레터</span></span>
+    
+  </button>
+  <button class="tab" role="tab" data-t="3" aria-selected="false" aria-controls="p3">
+    <span class="no">3</span><span class="tx"><span class="tt">회사생활</span><span class="ts">가이드 · 문의</span></span>
+    
+  </button>
+  <button class="tab" role="tab" data-t="4" aria-selected="false" aria-controls="p4">
+    <span class="no">4</span><span class="tx"><span class="tt">기술정보·커뮤니티</span><span class="ts">AI 공모 · 칭찬</span></span>
+    <span class="dot" title="새 글 있음"></span>
+  </button></nav>
+    <div class="upcoming" id="upcoming"><h2>다가오는 일정</h2><div class="up hot" data-dl="2026-10-27"><b>10/27</b><span>거래처 대금 접수마감</span></div><div class="up" data-dl="2026-10-28"><b>10/28</b><span>AI 생활 사례 접수 시작</span></div><div class="up hot" data-dl="2026-11-05"><b>11/05</b><span>임직원 경비 접수마감</span></div><div class="up" data-dl="2026-11-18"><b>10/28</b><span>AI 생활 사례 접수 종료</span></div>
+    <div class="hint"><kbd>1</kbd>~<kbd>4</kbd> 키로 탭 이동 · <kbd>←</kbd><kbd>→</kbd> 이전/다음</div></div>
+  </aside>
+  <div class="main">
+    <div class="topbar"><div class="t">뉴스레터</div><div class="d">2026.10.21 (수) 발행</div></div>
+    <main class="content">
+      <div class="stale" id="stale"></div>
+      
+  <section class="panel on" id="p1" role="tabpanel">
+    <div class="ph"><div class="big">1</div><div><h2>공지사항</h2><p>가장 중요한 소식 · 공지 → 재무톡톡 → 주간메뉴 → 나머지 순</p></div></div>
+    <div class="subnav"><button data-go="b-1.1 공지">1.1 공지</button><button data-go="b-1.2 재무톡톡">1.2 재무톡톡</button><button data-go="b-1.3 주간메뉴">1.3 주간메뉴</button><button data-go="b-1.4 나머지">1.4 나머지</button></div>
+    <div class="kd-row" id="kdRow">
+    <div class="kd hot" data-dl="2026-10-27"><div class="d">10/27<small>화</small></div><div class="t">11월 거래처 대금(1차)<br>재무기획실 접수마감</div></div>
+    <div class="kd hot" data-dl="2026-11-05"><div class="d">11/05<small>목</small></div><div class="t">11월 임직원 경비<br>재무기획실 접수마감</div></div>
+    <div class="kd" data-dl="2026-11-18"><div class="d">10/28<small>~ 11/18</small></div><div class="t">「2026 슬기로운 AI 생활」<br>사례 접수 기간</div></div>
+    <div class="kd" data-dl="2026-11-23"><div class="d">11/16 · 23<small>월</small></div><div class="t">11월 임직원 경비 지급일</div></div>
+  </div>
+    
+  <article class="block" id="b-1.1 공지">
+    <div class="bh"><span class="chip">1.1 공지</span><span class="date">09-15 · 피플팀 천선영 사원</span></div>
+    <h3>[공지] 사내문화 개선 캠페인 (26.09)</h3>
+    
+            <div class="stat-row">
+              <div class="stat"><div class="num">99.67<sup>%</sup></div><div class="cap">코어타임 전 출근 비율 (1~7월)</div></div>
+              <div class="txt"><p>이번 달 캠페인 주제는 <b>'출근시간 준수'</b>입니다. 지금처럼 코어타임 시작 전 여유 있게 출근해 원활하게 업무를 시작해 달라는 안내입니다.</p></div>
+            </div>
+    <div class="lk"><a href="https://gw.suresofttech.com/app/board/40/post/3850" target="_blank" rel="noopener">원문 보기 →</a> &nbsp;·&nbsp; <a href="https://gw.suresofttech.com/app/board/40" target="_blank" rel="noopener">공지 게시판 (총 17건)</a></div>
+  </article>
+  <article class="block" id="b-1.2 재무톡톡">
+    <div class="bh"><span class="chip">1.2 재무톡톡</span><span class="new">NEW</span><span class="date">10-15 · 재무기획팀 신예지 대리</span></div>
+    <h3>2026년 11월 지급일정 공지</h3>
+    
+            <div class="tw"><table>
+              <tr><th>구분</th><th>재무기획실 접수마감</th><th>지급일</th></tr>
+              <tr><td>경조금 · 동호회비 · 버디활동비 · 야근교통비 · 파견비</td><td class="dl" rowspan="2">~ 11/05 (목)</td><td class="pay">11/16 (월)</td></tr>
+              <tr><td>그 외 경비 및 출장비 (개인경비 · 출장여비 · 사내경조사 교통비 등)</td><td class="pay">11/23 (월)</td></tr>
+              <tr><td rowspan="3">거래처 대금</td><td class="dl">~ 10/27 (화)</td><td class="pay">11/04 (수)</td></tr>
+              <tr><td class="dl">~ 11/09 (월)</td><td class="pay">11/16 (월)</td></tr>
+              <tr><td class="dl">~ 11/23 (월)</td><td class="pay">11/30 (월)</td></tr>
+            </table></div>
+            <div class="note">접수마감은 결재가 완료되어 재무기획실 합의 전 단계로 넘어오는 기준일입니다.</div>
+            <p class="m" style="margin-top:12px">함께 보기 · 2026년 10월 지급일정 공지(09-16) · 2026.9월 비용 및 매입 마감 안내(09-23, 제출 10/07까지 — 마감 종료)</p>
+    <div class="lk"><a href="https://gw.suresofttech.com/app/board/46/post/4004" target="_blank" rel="noopener">원문 보기 →</a> &nbsp;·&nbsp; <a href="https://gw.suresofttech.com/app/board/46" target="_blank" rel="noopener">재무톡톡 게시판 (총 72건)</a></div>
+  </article>
+  <article class="block" id="b-1.3 주간메뉴">
+    <div class="bh"><span class="chip">1.3 주간메뉴</span><span class="new">NEW</span><span class="date">10-19 · 민지애 대리</span></div>
+    <h3>금주 주간메뉴 <span class="m" style="font-weight:500;font-size:13px">10/19 ~ 10/23 · 중식 11:30~13:00</span></h3>
+    
+            <div class="menu">
+              <div class="day" data-date="2026-10-19"><div class="dh">월 10/19</div><dl><dt>A</dt><dd>참치김치찌개</dd><dt>B</dt><dd>일식카레라이스·새우튀김</dd><dt>샐러드 t/o</dt><dd class="s">스모크덕푸실리샐러드</dd></dl></div>
+              <div class="day" data-date="2026-10-20"><div class="dh">화 10/20</div><dl><dt>A</dt><dd>사골우거지탕</dd><dt>B</dt><dd>오므라이스·소시지구이</dd><dt>샐러드 t/o</dt><dd class="s">두부카츠샐러드</dd></dl></div>
+              <div class="day" data-date="2026-10-21"><div class="dh">수 10/21</div><dl><dt>A</dt><dd>임연수구이</dd><dt>B</dt><dd>장칼국수</dd><dt>샐러드 t/o</dt><dd class="s">콥샐러드</dd></dl></div>
+              <div class="day" data-date="2026-10-22"><div class="dh">목 10/22</div><dl><dt>A</dt><dd>동태매운탕</dd><dt>B</dt><dd>치킨까스마요덮밥</dd><dt>샐러드 t/o</dt><dd class="s">리코타단호박샐러드</dd></dl></div>
+              <div class="day" data-date="2026-10-23"><div class="dh">금 10/23</div><dl><dt>A</dt><dd>제육콩나물볶음</dd><dt>B</dt><dd>짜장덮밥·계란프라이</dd><dt>샐러드 t/o</dt><dd class="s">오렌지닭가슴살샐러드</dd></dl></div>
+            </div>
+    <div class="lk"><a href="https://gw.suresofttech.com/app/board/380/post/4013" target="_blank" rel="noopener">주간식단표 원문(PDF) →</a></div>
+  </article><div class="grid">
+  <article class="block" id="b-1.4 나머지">
+    <div class="bh"><span class="chip">1.4 나머지</span><span class="date">09-21 ~ 10-16</span></div>
+    <h3>인사발령</h3>
+    
+            <div class="tags"><span>채용 1</span><span>퇴직 3</span><span>휴직 2</span><span>겸직 1</span></div>
+            <p class="m">기간 내 등록 7건</p>
+    <div class="lk"><a href="https://gw.suresofttech.com/app/board/41" target="_blank" rel="noopener">인사발령 게시판 →</a></div>
+  </article>
+  <article class="block">
+    <div class="bh"><span class="chip">1.4 나머지</span></div>
+    <h3>경조사</h3>
+    
+            <ul>
+              <li>제어기개발팀 원찬주 전임 조부상 <span class="m">오늘</span></li>
+              <li>컬쳐앤인프라팀 하새은 사원 결혼식 <span class="m">10-12</span></li>
+              <li>모빌리티솔루션6팀 신재욱 팀장 결혼식 <span class="m">10-06</span></li>
+              <li>모빌리티SW전략3팀 김건식 팀장 출산 <span class="m">09-28</span></li>
+              <li>AI시험인증1팀 허성수 팀장 결혼식 <span class="m">09-18</span></li>
+            </ul>
+    <div class="lk"><a href="https://gw.suresofttech.com/app/board/43" target="_blank" rel="noopener">경조사 게시판 →</a></div>
+  </article></div>
+  </section>
+  <section class="panel" id="p2" role="tabpanel">
+    <div class="ph"><div class="big">2</div><div><h2>정보보안/보호</h2><p>보안레터 · 모의훈련 · 보안 권고</p></div></div>
+    
+    
+    
+  <article class="block">
+    <div class="bh"><span class="chip">정보보안</span><span class="date">09-02 · 컬처앤인프라팀 최성재 사원</span></div>
+    <h3>26년 9월 보안레터</h3>
+    
+            <p>가장 최근 등록된 보안 안내입니다. 이번 기간(9/15~)에 새로 올라온 보안 게시글은 없습니다.</p>
+            <p class="m">이전: 2026년 상반기 피싱메일 모의훈련 결과 안내 (06-04)</p>
+    <div class="lk"><a href="https://gw.suresofttech.com/app/board/47" target="_blank" rel="noopener">정보보안/보호 안내 게시판 (총 22건) →</a></div>
+  </article>
+  </section>
+  <section class="panel" id="p3" role="tabpanel">
+    <div class="ph"><div class="big">3</div><div><h2>회사생활</h2><p>회사 생활 가이드 → 문의 · 기술지원 · SW/도서</p></div></div>
+    
+    
+    
+  <article class="block">
+    <div class="bh"><span class="chip">3.1 회사 생활 가이드</span></div>
+    <h3>최근 등록된 가이드</h3>
+    
+            <ul>
+              <li><b>[파견비신청서] 작성가이드 및 질의응답(FAQ) 안내</b> <span class="m">09-03 · 엄유진 대리</span></li>
+              <li><b>[안내] 판교사옥 식당 이용 순서 안내 (2026.09.02~)</b> <span class="m">09-01 · 민지애 대리</span></li>
+              <li>셔틀 · 통근버스 시간표 (2026.08.03~) <span class="m">07-27</span></li>
+              <li>[공지] 주차장 이용 수칙 안내 <span class="m">07-27</span></li>
+            </ul>
+    <div class="lk"><a href="https://gw.suresofttech.com/app/board/48" target="_blank" rel="noopener">회사 생활 가이드 게시판 (총 21건) →</a></div>
+  </article>
+  <article class="block">
+    <div class="bh"><span class="chip">3.2 나머지</span></div>
+    <h3>문의 · 기술지원 · SW/도서</h3>
+    
+            <ul>
+              <li>대전지역 근무자 명절 선물 수령 관련 문의 <span class="m">09-08 · 답글 5</span></li>
+              <li>SW/도서: 2026.08.10 표준문서 목록 <span class="m">08-10</span></li>
+              <li>회사 기술지원: NAC 메뉴얼 <span class="m">25-08-27</span></li>
+            </ul>
+    <div class="lk"><a href="https://gw.suresofttech.com/app/board/49" target="_blank" rel="noopener">회사 생활 문의</a> &nbsp;·&nbsp; <a href="https://gw.suresofttech.com/app/board/50" target="_blank" rel="noopener">회사 기술지원</a> &nbsp;·&nbsp; <a href="https://gw.suresofttech.com/app/board/52" target="_blank" rel="noopener">SW/도서</a></div>
+  </article>
+  </section>
+  <section class="panel" id="p4" role="tabpanel">
+    <div class="ph"><div class="big">4</div><div><h2>기술정보·커뮤니티</h2><p>AI 활용 · 기술 공유 · 칭찬 · 새 얼굴 · 사우회</p></div></div>
+    
+    
+    
+  <article class="block">
+    <div class="bh"><span class="chip">기술정보</span><span class="new">NEW</span><span class="date">10-21 · 피플팀</span></div>
+    <h3>「2026 슬기로운 AI 생활」 사내 AI 활용 사례 모집</h3>
+    
+            <ul>
+              <li><b>접수 기간</b> 2026.10.28(수) ~ 11.18(수)</li>
+              <li><b>응모 대상</b> 전 직원 (인턴 포함, 협력업체 제외)</li>
+              <li><b>응모 방법</b> 그룹웨어 '슬기로운 AI 생활' 게시판에 익명으로 게시글 작성 — 업무 적용, 개선 효과, AI 활용 방법을 소개</li>
+            </ul>
+            <p class="m">게시판에는 이미 응모 사례 2건이 올라왔습니다: 메일 백업 zip 통합검색 도구, 산출물 표지 서명·결재 자동화 도구.</p>
+    <div class="lk"><a href="https://gw.suresofttech.com/app/board/411" target="_blank" rel="noopener">슬기로운 AI 생활 게시판 →</a></div>
+  </article>
+  <article class="block">
+    <div class="bh"><span class="chip">기술정보</span></div>
+    <h3>최근 기술 공유</h3>
+    
+            <ul>
+              <li>AI 활용해서 티트리 PC 버전 자동 로그인 안 되던 버그 고친 사례 공유 <span class="m">09-23 · 이성건 책임연구원</span></li>
+              <li>자율주행 모빌리티 산업전 2026 참관 내용 공유 1~4편(완) <span class="m">08-31 ~ 09-03 · 이성건 책임연구원</span></li>
+              <li>[AIV Lab 정기 세미나] 2026 제5회 발표자료·영상 공유 <span class="m">08-26 · 강규황 수석연구원</span></li>
+            </ul>
+    <div class="lk"><a href="https://gw.suresofttech.com/app/board/55" target="_blank" rel="noopener">기술지식 공유게시판</a> &nbsp;·&nbsp; <a href="https://gw.suresofttech.com/app/board/280" target="_blank" rel="noopener">AI 활용 사례 공유</a></div>
+  </article><div class="grid">
+  <article class="block">
+    <div class="bh"><span class="chip">칭찬합니다</span></div>
+    <h3>칭찬합니다</h3>
+    
+            <ul>
+              <li>모빌리티SW전략4팀 안신영 수석 <span class="m">10-16</span></li>
+              <li>피플팀 천선영 사원 <span class="m">09-29</span></li>
+              <li>전략기획실 강은빈 사원 <span class="m">09-15</span></li>
+            </ul>
+    <div class="lk"><a href="https://gw.suresofttech.com/app/board/58" target="_blank" rel="noopener">더 보기 →</a></div>
+  </article>
+  <article class="block">
+    <div class="bh"><span class="chip">처음 뵙겠습니다</span></div>
+    <h3>처음 뵙겠습니다</h3>
+    <ul><li>AI모델검증솔루션팀 김진 전임 <span class="m">09-21 입사</span></li></ul>
+    <div class="lk"><a href="https://gw.suresofttech.com/app/board/61" target="_blank" rel="noopener">더 보기 →</a></div>
+  </article>
+  <article class="block">
+    <div class="bh"><span class="chip">자유게시판</span></div>
+    <h3>자유게시판</h3>
+    <ul><li>제25회 대청호 마라톤대회 후기 <span class="m">10-19 · 좋아요 21</span></li></ul>
+    
+  </article>
+  <article class="block">
+    <div class="bh"><span class="chip">사우회</span></div>
+    <h3>사우회</h3>
+    
+            <ul>
+              <li>경조 축하금·송별회 지원금 전달 8건 <span class="m">10-19</span></li>
+              <li>2026년 추석 명절 선물 관련 공지 <span class="m">09-22</span></li>
+            </ul>
+    <div class="lk"><a href="https://gw.suresofttech.com/app/board/62" target="_blank" rel="noopener">더 보기 →</a></div>
+  </article></div>
+  </section>
+      <footer>출처: 슈어소프트 그룹웨어 전사 게시판 (2026.10.21 열람). 링크는 사내 그룹웨어 로그인 후 열립니다.</footer>
+    </main>
+  </div>
+</div>
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab')), panels=[].slice.call(document.querySelectorAll('.panel')), KEY='suresoft-newsletter-tab';
+  function pad(n){return n<10?'0'+n:''+n}
+  var now=new Date(), today=now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate());
+
+  // 오늘 식단 강조
+  [].forEach.call(document.querySelectorAll('.day[data-date]'),function(d){
+    if(d.dataset.date===today){d.classList.add('today');var h=d.querySelector('.dh');if(h&&!h.querySelector('em'))h.insertAdjacentHTML('beforeend','<em>TODAY</em>');}
+  });
+  // 지난 일정 숨김
+  [].forEach.call(document.querySelectorAll('[data-dl]'),function(el){ if(el.dataset.dl<today) el.style.display='none'; });
+  var ups=[].filter.call(document.querySelectorAll('#upcoming .up'),function(e){return e.style.display!=='none'});
+  ups.slice(5).forEach(function(e){e.style.display='none'});
+  var up=document.getElementById('upcoming'); if(up&&!ups.length){var h2=up.querySelector('h2'); if(h2)h2.style.display='none';}
+  var kr=document.getElementById('kdRow');
+  if(kr&&![].some.call(kr.children,function(c){return c.style.display!=='none'})) kr.style.display='none';
+  // 오래된 발행본 안내
+  var issued=document.body.dataset.issued;
+  if(issued&&issued<today){
+    var days=Math.round((new Date(today)-new Date(issued))/864e5), s=document.getElementById('stale');
+    if(s){s.textContent='이 뉴스레터는 '+days+'일 전('+issued.replace(/-/g,'.')+') 발행본입니다. 최신 내용은 갱신 후 확인하세요.';s.style.display='block';}
+  }
+
+  function show(n,push){
+    n=String(n);
+    tabs.forEach(function(t){t.setAttribute('aria-selected',t.dataset.t===n?'true':'false')});
+    panels.forEach(function(p){p.classList.toggle('on',p.id==='p'+n)});
+    window.scrollTo(0,0);
+    if(push){try{history.replaceState(null,'','#tab'+n)}catch(e){}}
+    try{localStorage.setItem(KEY,n)}catch(e){}
+  }
+  tabs.forEach(function(t){t.addEventListener('click',function(){show(t.dataset.t,true)})});
+  [].forEach.call(document.querySelectorAll('[data-go]'),function(b){b.addEventListener('click',function(){var el=document.getElementById(b.dataset.go);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})})});
+  document.addEventListener('keydown',function(e){
+    if(e.ctrlKey||e.metaKey||e.altKey)return;
+    var cur=tabs.findIndex(function(t){return t.getAttribute('aria-selected')==='true'}), n=tabs.length;
+    if(e.key>='1'&&e.key<='4'&&Number(e.key)<=n)show(e.key,true);
+    else if(e.key==='ArrowRight')show(((cur+1)%n)+1,true);
+    else if(e.key==='ArrowLeft')show(((cur-1+n)%n)+1,true);
+  });
+  var m=/^#tab([1-9])$/.exec(location.hash), start=m?m[1]:null;
+  if(!start){try{start=localStorage.getItem(KEY)}catch(e){}}
+  if(start&&document.getElementById('p'+start))show(start,false);
+})();
+</script>
+</body>
+</html>
