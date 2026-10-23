@@ -3,8 +3,8 @@
 // body 는 HTML 문자열(백틱)입니다. 사용 가능한 CSS 클래스는 build.mjs 의 <style> 참고.
 
 export default {
-  issued: '2026-10-21',          // 발행일 (YYYY-MM-DD)
-  range: '09.15 ~ 10.21',        // 다루는 기간 표시용
+  issued: '2026-10-23',          // 발행일 (YYYY-MM-DD)
+  range: '09.18 ~ 10.23',        // 다루는 기간 표시용
   source: '슈어소프트 그룹웨어 전사 게시판',
 
   // 마감/일정. date 는 마감(종료)일 ISO. 지난 일정은 페이지에서 자동으로 숨겨집니다.
@@ -37,13 +37,13 @@ export default {
         { k: '11/16 월', v: '경조금·동호회비·야근교통비 지급' },
         { k: '11/23 월', v: '개인경비·출장여비 등 지급' },
       ] },
-    { tier: 1, label: '공지사항 · 주간메뉴', title: '오늘의 점심', sub: '10/21 (수) · 11:30~13:00',
+    { tier: 1, label: '공지사항 · 주간메뉴', title: '오늘의 점심', sub: '10/23 (금) · 11:30~13:00',
       rows: [
-        { k: 'A', v: '임연수구이' },
-        { k: 'B', v: '장칼국수' },
-        { k: '샐러드', v: '콥샐러드' },
+        { k: 'A', v: '제육콩나물볶음' },
+        { k: 'B', v: '짜장덮밥·계란프라이' },
+        { k: '샐러드', v: '오렌지닭가슴살샐러드' },
       ],
-      foot: '내일(목): A 동태매운탕 · B 치킨까스마요덮밥' },
+      foot: '다음 주 식단은 게시판에 올라오면 갱신됩니다' },
     { tier: 4, label: '기술정보 · 슬기로운 AI 생활', title: 'AI 활용 사례를 모집합니다', sub: '혼자 쓰기 아까운 AI 활용법, 나눠 주세요',
       rows: [
         { k: '기간', v: '10/28 (수) ~ 11/18 (수)' },
@@ -52,7 +52,7 @@ export default {
       ] },
     { tier: 4, label: '커뮤니티', title: '이번 주 사내 소식',
       bullets: [
-        '칭찬합니다 · 모빌리티SW전략4팀 안신영 수석',
+        '칭찬합니다 · PL팀 서혜원 전임 / 곽충석 팀장',
         '처음 뵙겠습니다 · AI모델검증솔루션팀 김진 전임',
         '대청호 마라톤대회 후기 (좋아요 21)',
       ] },
@@ -61,8 +61,8 @@ export default {
   tabs: [
     /* ============================ 1. 공지사항 ============================ */
     {
-      id: 1, title: '공지사항', sub: '공지 · 재무 · 식단',
-      desc: '가장 중요한 소식 · 공지 → 재무톡톡 → 주간메뉴 → 나머지 순',
+      id: 1, title: '공지사항', short: '공지사항', sub: '공지 · 재무 · 식단',
+      desc: '11월 지급일정·접수마감 안내 · 금주 식단 · 경조사·인사발령 소식',
       showDeadlines: true,
       blocks: [
         { anchor: '1.1 공지', chip: '1.1 공지', title: '[공지] 사내문화 개선 캠페인 (26.09)',
@@ -75,7 +75,7 @@ export default {
           links: [['원문 보기 →', 'https://gw.suresofttech.com/app/board/40/post/3850'],
                   ['공지 게시판 (총 17건)', 'https://gw.suresofttech.com/app/board/40']] },
 
-        { anchor: '1.2 재무톡톡', chip: '1.2 재무톡톡', isNew: true, title: '2026년 11월 지급일정 공지',
+        { anchor: '1.2 재무톡톡', chip: '1.2 재무톡톡', title: '2026년 11월 지급일정 공지',
           date: '10-15', by: '재무기획팀 신예지 대리',
           body: `
             <div class="tw"><table>
@@ -91,7 +91,7 @@ export default {
           links: [['원문 보기 →', 'https://gw.suresofttech.com/app/board/46/post/4004'],
                   ['재무톡톡 게시판 (총 72건)', 'https://gw.suresofttech.com/app/board/46']] },
 
-        { anchor: '1.3 주간메뉴', chip: '1.3 주간메뉴', isNew: true,
+        { anchor: '1.3 주간메뉴', chip: '1.3 주간메뉴',
           title: '금주 주간메뉴 <span class="m" style="font-weight:500;font-size:13px">10/19 ~ 10/23 · 중식 11:30~13:00</span>',
           date: '10-19', by: '민지애 대리',
           body: `
@@ -113,7 +113,7 @@ export default {
         { chip: '1.4 나머지', half: true, title: '경조사',
           body: `
             <ul>
-              <li>제어기개발팀 원찬주 전임 조부상 <span class="m">오늘</span></li>
+              <li>제어기개발팀 원찬주 전임 조부상 <span class="m">10-21</span></li>
               <li>컬쳐앤인프라팀 하새은 사원 결혼식 <span class="m">10-12</span></li>
               <li>모빌리티솔루션6팀 신재욱 팀장 결혼식 <span class="m">10-06</span></li>
               <li>모빌리티SW전략3팀 김건식 팀장 출산 <span class="m">09-28</span></li>
@@ -125,20 +125,20 @@ export default {
 
     /* ============================ 2. 정보보안/보호 ============================ */
     {
-      id: 2, title: '정보보안/보호', sub: '보안레터',
+      id: 2, title: '정보보안/보호', short: '정보보안', sub: '보안레터',
       desc: '보안레터 · 모의훈련 · 보안 권고',
       blocks: [
-        { chip: '정보보안', title: '26년 9월 보안레터', date: '09-02', by: '컬처앤인프라팀 최성재 사원',
+        { chip: '정보보안', isNew: true, title: 'VPN 메뉴얼 안내', date: '10-22', by: '컬처앤인프라팀 최성재 사원',
           body: `
-            <p>가장 최근 등록된 보안 안내입니다. 이번 기간(9/15~)에 새로 올라온 보안 게시글은 없습니다.</p>
-            <p class="m">이전: 2026년 상반기 피싱메일 모의훈련 결과 안내 (06-04)</p>`,
-          links: [['정보보안/보호 안내 게시판 (총 22건) →', 'https://gw.suresofttech.com/app/board/47']] },
+            <p>VPN 사용 매뉴얼이 새로 등록되었습니다. 자세한 내용은 게시글을 확인해 주세요.</p>
+            <p class="m">이전: 26년 9월 보안레터 (09-02) · 2026년 상반기 피싱메일 모의훈련 결과 안내 (06-04)</p>`,
+          links: [['정보보안/보호 안내 게시판 (총 23건) →', 'https://gw.suresofttech.com/app/board/47']] },
       ],
     },
 
     /* ============================ 3. 회사생활 ============================ */
     {
-      id: 3, title: '회사생활', sub: '가이드 · 문의',
+      id: 3, title: '회사생활', short: '회사생활', sub: '가이드 · 문의',
       desc: '회사 생활 가이드 → 문의 · 기술지원 · SW/도서',
       blocks: [
         { chip: '3.1 회사 생활 가이드', title: '최근 등록된 가이드',
@@ -166,17 +166,17 @@ export default {
 
     /* ============================ 4. 기술정보·커뮤니티 ============================ */
     {
-      id: 4, title: '기술정보·커뮤니티', sub: 'AI 공모 · 칭찬',
+      id: 4, title: '기술정보·커뮤니티', short: '기술정보', sub: 'AI 공모 · 칭찬',
       desc: 'AI 활용 · 기술 공유 · 칭찬 · 새 얼굴 · 사우회',
       blocks: [
-        { chip: '기술정보', isNew: true, title: '「2026 슬기로운 AI 생활」 사내 AI 활용 사례 모집', date: '10-21', by: '피플팀',
+        { chip: '기술정보', title: '「2026 슬기로운 AI 생활」 사내 AI 활용 사례 모집', date: '10-21', by: '피플팀',
           body: `
             <ul>
               <li><b>접수 기간</b> 2026.10.28(수) ~ 11.18(수)</li>
               <li><b>응모 대상</b> 전 직원 (인턴 포함, 협력업체 제외)</li>
               <li><b>응모 방법</b> 그룹웨어 '슬기로운 AI 생활' 게시판에 익명으로 게시글 작성 — 업무 적용, 개선 효과, AI 활용 방법을 소개</li>
             </ul>
-            <p class="m">게시판에는 이미 응모 사례 2건이 올라왔습니다: 메일 백업 zip 통합검색 도구, 산출물 표지 서명·결재 자동화 도구.</p>`,
+            <p class="m">현재 게시판에는 모집 공지 1건이 등록되어 있습니다.</p>`,
           links: [['슬기로운 AI 생활 게시판 →', 'https://gw.suresofttech.com/app/board/411']] },
 
         { chip: '기술정보', title: '최근 기술 공유',
@@ -192,9 +192,9 @@ export default {
         { chip: '칭찬합니다', half: true, title: '칭찬합니다',
           body: `
             <ul>
+              <li>PL팀 서혜원 전임 / 곽충석 팀장 <span class="m">10-21</span></li>
               <li>모빌리티SW전략4팀 안신영 수석 <span class="m">10-16</span></li>
               <li>피플팀 천선영 사원 <span class="m">09-29</span></li>
-              <li>전략기획실 강은빈 사원 <span class="m">09-15</span></li>
             </ul>`,
           links: [['더 보기 →', 'https://gw.suresofttech.com/app/board/58']] },
 

@@ -8,6 +8,10 @@ import data from './newsletter-data.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const esc = (s = '') => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+// 마스코트(슈구리) 이미지는 파일 하나로 동작하도록 base64 로 HTML 에 직접 넣는다. (assets/ 폴더)
+const asset = (n) => 'data:image/png;base64,' + readFileSync(join(here, 'assets', n)).toString('base64');
+const FACE = asset('mascot-face.png');
+const FULL = asset('mascot-full.png');
 const DOW = ['일', '월', '화', '수', '목', '금', '토'];
 const issued = new Date(data.issued + 'T00:00:00');
 const issuedLabel = `${data.issued.replace(/-/g, '.')} (${DOW[issued.getDay()]})`;
@@ -16,8 +20,11 @@ const issuedLabel = `${data.issued.replace(/-/g, '.')} (${DOW[issued.getDay()]})
 const links = (ls = []) => ls.length
   ? `<div class="lk">${ls.map(([t, u]) => `<a href="${esc(u)}" target="_blank" rel="noopener">${t}</a>`).join(' &nbsp;·&nbsp; ')}</div>` : '';
 
+let blockSeq = 0;
+for (const t of data.tabs) for (const b of t.blocks) b._id = b.anchor ? `b-${b.anchor}` : `blk-${++blockSeq}`;
+
 const block = (b) => `
-  <article class="block"${b.anchor ? ` id="b-${esc(b.anchor)}"` : ''}>
+  <article class="block" id="${esc(b._id)}">
     <div class="bh"><span class="chip">${esc(b.chip)}</span>${b.isNew ? '<span class="new">NEW</span>' : ''}${
       (b.date || b.by) ? `<span class="date">${esc([b.date, b.by].filter(Boolean).join(' · '))}</span>` : ''}</div>
     <h3>${b.title}</h3>
@@ -56,7 +63,7 @@ const upcoming = () => `<div class="upcoming cal" id="upcoming">
 
 const tabBtn = (t, i) => `
   <button class="tab" role="tab" data-t="${t.id}" aria-selected="${i === 0}" aria-controls="p${t.id}">
-    <span class="no">${t.id}</span><span class="tx"><span class="tt">${esc(t.title)}</span><span class="ts">${esc(t.sub)}</span></span>
+    <span class="no">${t.id}</span><span class="tx"><span class="tt">${esc(t.title)}</span><span class="tm">${esc(t.short || t.title)}</span><span class="ts">${esc(t.sub)}</span></span>
     ${t.blocks.some(b => b.isNew) ? '<span class="dot" title="새 글 있음"></span>' : ''}
   </button>`;
 
@@ -102,13 +109,17 @@ const cardCss = `
   .cn .bul div:before{content:"";position:absolute;left:0;top:18px;width:20px;height:20px;border-radius:50%;background:#00a0b9}
   .cn .foot{position:absolute;left:0;right:0;bottom:0;height:96px;background:#00a0b9;color:#fff;
             display:flex;align-items:center;justify-content:space-between;padding:0 72px}
-  .cn .foot .brand{font-size:28px;font-weight:700;opacity:.95}
+  .cn .foot .brand{font-size:28px;font-weight:700;opacity:.95;display:flex;align-items:center;gap:14px}
+  .cn .foot .mf{width:68px;height:68px;background:#fff;border-radius:50%;object-fit:cover}
+  .cn .mc{position:absolute;right:46px;bottom:56px;width:360px;height:360px;filter:drop-shadow(0 10px 18px rgba(0,0,0,.22))}
   .cn .foot .pg2{font-size:28px;font-weight:700;opacity:.85}
   .cn .note{margin-top:34px;font-size:36px;font-weight:700;color:#008aa1;line-height:1.35}
   .cn.cover,.cn.end{background:linear-gradient(150deg,#0a7f95 0%,#00a0b9 55%,#2ab8cf 100%);color:#fff;
       display:flex;flex-direction:column;justify-content:center;padding:0 90px}
   .cn.cover .eb,.cn.end .eb{font-size:32px;letter-spacing:8px;font-weight:700;opacity:.85}
   .cn.cover h1,.cn.end h1{margin-top:26px;font-size:128px;line-height:1.15;letter-spacing:-4px;font-weight:800}
+  .cn.end h1{font-size:92px;letter-spacing:-3px}
+  .cn.end .mc{width:250px;height:250px;bottom:50px}
   .cn.cover .dt,.cn.end .dt{margin-top:40px;font-size:46px;font-weight:700}
   .cn.cover .tg{margin-top:24px;font-size:36px;font-weight:600;opacity:.9}
   .cn.cover .pill,.cn.end .pill{margin-top:56px;align-self:flex-start;background:rgba(255,255,255,.2);border-radius:99px;padding:16px 36px;font-size:34px;font-weight:700}
@@ -121,6 +132,12 @@ const cardInner = (c) => {
   return '';
 };
 
+const newItems = data.tabs.flatMap(t => (t.blocks || []).filter(b => b.isNew).map(b => ({ tab: t, b })));
+const newCount = newItems.length;
+const stripTags = (h = '') => String(h).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+const newsList = newItems.length
+  ? newItems.map(({ tab, b }) => `<li><button type="button" data-nt="${tab.id}" data-nb="${esc(b._id)}"><span class="nt">${tab.id} ${esc(tab.title)} · ${esc(b.chip)}</span><span class="ntt">${esc(stripTags(b.title))}</span>${b.date ? `<span class="ntd">${esc(b.date)}</span>` : ''}</button></li>`).join('')
+  : '<li class="nnone">오늘은 새로 배달된 소식이 없어요.</li>';
 const cardList = () => {
   const mid = data.cards || [];
   const total = mid.length + 2;
@@ -128,15 +145,15 @@ const cardList = () => {
   const end = { type: 'end' };
   return [cover, ...mid, end].map((c, i) => {
     if (c.type === 'cover') return `
-      <div class="cn cover"><div class="eb">SURESOFT NEWSLETTER</div><h1>슈어소프트<br>뉴스레터</h1>
-        <div class="dt">${issuedLabel}</div><div class="tg">이번 주 꼭 알아야 할 사내 소식</div><div class="pill">1/${total}</div></div>`;
+      <div class="cn cover"><img class="mc" data-m="full" alt=""><div class="eb">SURESOFT NEWSLETTER</div><h1>슈구리<br>편지</h1>
+        <div class="dt">${issuedLabel}</div><div class="tg">슈구리가 물어다 준 이번 주 사내 소식</div><div class="pill">1/${total}</div></div>`;
     if (c.type === 'end') return `
-      <div class="cn end"><div class="eb">THANK YOU</div><h1>더 많은 소식은<br>그룹웨어 게시판에서</h1>
-        <div class="dt">전사게시판 · 공지사항부터 확인하세요</div><div class="pill">${total}/${total}</div></div>`;
+      <div class="cn end"><img class="mc" data-m="full" alt=""><div class="eb">SEE YOU SOON</div><h1>더 궁금하다면?<br>게시판으로 뒤뚱뒤뚱</h1>
+        <div class="dt">공지사항부터 슈구리랑 같이 확인!</div><div class="pill">${total}/${total}</div></div>`;
     return `
       <div class="cn"><div class="top"><div class="lab"><span class="tier">${esc(c.tier)}</span><span>${esc(c.label)}</span></div></div>
         <div class="body"><h2>${esc(c.title)}</h2>${c.sub ? `<div class="sub">${esc(c.sub)}</div>` : ''}${cardInner(c)}${c.foot ? `<div class="note">${esc(c.foot)}</div>` : ''}</div>
-        <div class="foot"><span class="brand">슈어소프트 뉴스레터 · ${data.issued.replace(/-/g, '.')}</span><span class="pg2">${i + 1}/${total}</span></div></div>`;
+        <div class="foot"><span class="brand"><img class="mf" data-m="face" alt="">슈구리 편지 · ${data.issued.replace(/-/g, '.')}</span><span class="pg2">${i + 1}/${total}</span></div></div>`;
   });
 };
 
@@ -193,6 +210,7 @@ const css = `
   .brand .eb{font-size:10px;letter-spacing:.2em;font-weight:700;color:rgba(255,255,255,.75)}
   .brand h1{margin:5px 0 4px;font-size:20px;letter-spacing:-.03em;line-height:1.25}
   .brand .dt{font-size:12px;color:rgba(255,255,255,.8)}
+  .brand .mascot{width:62px;height:62px;border-radius:50%;background:#fff;object-fit:cover;margin-bottom:8px;box-shadow:0 2px 8px rgba(0,0,0,.2)}
   nav.tabs{margin-top:14px;display:flex;flex-direction:column;gap:4px}
   .tab{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:none;border:0;border-radius:8px;padding:7px 10px;position:relative;transition:background .15s}
   .tab:hover{background:rgba(255,255,255,.14)}
@@ -203,6 +221,7 @@ const css = `
   .tab[aria-selected="true"]{background:#fff;color:var(--teal-d);box-shadow:0 2px 8px rgba(0,60,75,.25)}
   .tab[aria-selected="true"] .no{background:var(--teal);color:#fff}
   .tab[aria-selected="true"] .ts{color:var(--muted)}
+  .tab .tm{display:none}
   .tab .dot{width:8px;height:8px;border-radius:50%;background:var(--red);flex:none;box-shadow:0 0 0 2px var(--teal)}
   .tab[aria-selected="true"] .dot{box-shadow:0 0 0 2px #fff}
   .upcoming{margin-top:auto;position:relative;border-top:1px solid rgba(255,255,255,.22);padding:12px 4px 0}
@@ -241,7 +260,7 @@ const css = `
   .topbar{background:var(--surface);border-bottom:1px solid var(--line);padding:0 40px;height:54px;display:flex;align-items:flex-end;justify-content:space-between}
   .topbar .t{font-size:14px;font-weight:700;padding:0 4px 14px;border-bottom:2px solid var(--teal);color:var(--ink)}
   .topbar .d{padding-bottom:10px;font-size:12.5px;color:var(--muted)}
-  main.content{padding:26px 40px 56px;max-width:1040px}
+  main.content{padding:26px 40px 56px}
   .stale{display:none;background:var(--red-s);border:1px solid #f3c2ba;color:#b13a28;border-radius:6px;padding:9px 14px;margin-bottom:16px;font-size:13px;font-weight:600}
   .panel{display:none}
   .panel.on{display:block;animation:fade .2s ease}
@@ -305,10 +324,47 @@ const css = `
   .tags{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 8px}
   .tags span{font-size:12.5px;font-weight:700;padding:3px 11px;border-radius:99px;background:var(--teal-s);color:var(--teal-d)}
 
+  /* 슈구리 버튼: 기본(모바일·좁은 화면)은 원형 얼굴 버튼, 1500px 이상은 큰 슈구리 + 말풍선 */
+  .mate{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:30;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent}
+  .mate .bub,.mate .mfull{display:none}
+  .mate .mface{display:block;width:62px;height:62px;border-radius:50%;background:#fff;border:3px solid var(--teal);object-fit:cover;box-shadow:0 6px 16px rgba(0,60,80,.3);animation:bob 3.2s ease-in-out infinite}
+  .mate .mbadge{position:absolute;top:-5px;right:-5px;min-width:22px;height:22px;padding:0 6px;border-radius:99px;background:var(--red);color:#fff;font-size:12px;font-weight:800;line-height:1;display:grid;place-items:center;border:2px solid #fff}
+  .mate:focus-visible .mface{box-shadow:0 0 0 4px rgba(0,160,185,.4)}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  @media (prefers-reduced-motion:reduce){.mate .mface,.mate .mfull{animation:none}}
+  @media (min-width:1900px){
+    main.content{padding-right:270px}
+    .mate{right:30px;bottom:26px;width:210px;text-align:center}
+    .mate .mface,.mate .mbadge{display:none}
+    .mate .bub{position:relative;display:inline-block;background:#fff;border:2px solid var(--teal);color:var(--ink);border-radius:16px;padding:10px 14px;font-size:13px;font-weight:700;line-height:1.45;box-shadow:0 6px 18px rgba(0,90,110,.12)}
+    .mate .bub b{color:var(--red)}
+    .mate .bub:after{content:'';position:absolute;left:50%;bottom:-9px;width:14px;height:14px;margin-left:-7px;background:#fff;border-right:2px solid var(--teal);border-bottom:2px solid var(--teal);transform:rotate(45deg)}
+    .mate .mfull{display:block;width:190px;height:190px;margin:12px auto 0;filter:drop-shadow(0 8px 12px rgba(0,60,80,.2));animation:bob 3.2s ease-in-out infinite}
+    .mate:hover .mfull{animation-duration:1.4s}
+    .mate:focus-visible .bub{box-shadow:0 0 0 3px rgba(0,160,185,.35)}
+  }
+  .nmodal{position:fixed;inset:0;z-index:60;background:rgba(15,30,40,.55);display:flex;align-items:center;justify-content:center;padding:20px}
+  .nmodal[hidden]{display:none}
+  .nbox{position:relative;width:min(520px,100%);max-height:86vh;overflow:auto;background:#fff;border-radius:16px;padding:22px 22px 16px;box-shadow:0 24px 60px rgba(0,0,0,.35)}
+  .nclose{position:absolute;right:12px;top:8px;border:0;background:none;font-size:28px;line-height:1;color:var(--muted)}
+  .nhead{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .nhead img{width:56px;height:56px;border-radius:50%;background:var(--soft);object-fit:cover;flex:none}
+  .nhead h2{margin:0;font-size:17px;letter-spacing:-.02em}
+  .nhead p{margin:2px 0 0;font-size:12.5px;color:var(--muted)}
+  .nlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+  .nlist button{width:100%;text-align:left;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;transition:background .15s,border-color .15s}
+  .nlist button:hover{background:#e6f6f9;border-color:var(--teal)}
+  .nlist .nt{font-size:11.5px;font-weight:700;color:var(--teal-d)}
+  .nlist .ntt{font-size:14px;font-weight:700;color:var(--ink);line-height:1.4}
+  .nlist .ntd{font-size:11.5px;color:var(--muted)}
+  .nlist .nnone{padding:18px 4px;text-align:center;color:var(--muted);font-size:13.5px}
+  .nfoot{margin-top:12px;text-align:center;font-size:11.5px;color:var(--muted)}
+  .blk-flash{animation:flash 1.6s ease}
+  @keyframes flash{0%,100%{box-shadow:none}25%{box-shadow:0 0 0 4px rgba(0,160,185,.45)}}
+
   footer{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
 
   /* card news UI */
-  .nav-sep{margin:10px 10px 2px;font-size:10.5px;letter-spacing:.14em;font-weight:700;color:rgba(255,255,255,.7)}
   .btn{background:var(--teal);color:#fff;border:0;border-radius:6px;padding:9px 16px;font-weight:700;font-size:13px}
   .btn:hover{background:var(--teal-d)}
   .btn.sm{padding:6px 12px;font-size:12.5px}
@@ -333,24 +389,57 @@ const css = `
   .cncount{color:#fff;font-weight:700;font-size:13px;min-width:44px;text-align:center}
   .cnmodal .btn.ghost{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.35)}
   .cnmodal .btn.ghost:hover{background:rgba(255,255,255,.26)}
-  .cnmodal[data-mode="view"] #cnSkip{display:none}
   .topbar .d{display:flex;align-items:center;gap:14px}
   .topbar .d .btn{padding:5px 12px}
+  .topbar .tbf{display:none}
 
   @media (max-width:860px){
-    .nav-sep{display:none}
-    .app{grid-template-columns:1fr}
-    aside.side{position:sticky;top:0;z-index:20;height:auto;flex-direction:row;align-items:center;padding:8px 10px;overflow-x:auto}
+    body{font-size:15px;line-height:1.65}
+    .app{grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr}
+    aside.side{position:sticky;top:0;z-index:20;height:auto;flex-direction:row;align-items:center;padding:6px 8px;overflow:visible}
     .brand,.upcoming{display:none}
-    nav.tabs{margin:0;flex-direction:row;gap:6px;width:100%}
-    .tab{flex:1;justify-content:center;padding:7px 6px;gap:7px;min-width:0}
-    .tab .ts{display:none} .tab .tx{flex:none} .tab .tt{font-size:12.5px;white-space:nowrap}
-    .tab .no{width:24px;height:24px;font-size:12px;border-radius:6px}
-    .topbar{padding:0 16px} main.content{padding:20px 16px 44px}
+    nav.tabs{margin:0;flex-direction:row;gap:4px;width:100%}
+    .tab{flex:1 1 0;min-width:0;flex-direction:column;justify-content:flex-start;align-items:center;gap:4px;padding:7px 2px 6px;text-align:center}
+    .tab .no{width:26px;height:26px;font-size:13px;border-radius:7px}
+    .tab .tx{display:flex;flex:none;width:100%;justify-content:center}
+    .tab .ts{display:none}
+    .tab{padding-left:0;padding-right:0}
+    .tab .tt{display:none}
+    .tab .tm{display:block;font-size:12px;line-height:1.2;font-weight:700;text-align:center;white-space:nowrap}
+    .block li .m{display:block;line-height:1.4}
+    .tab .dot{position:absolute;top:5px;right:calc(50% - 22px)}
+    .topbar{height:auto;padding:10px 14px;flex-direction:column;align-items:stretch;gap:8px}
+    .topbar .t{display:flex;align-items:center;gap:9px;padding:0;border:0;font-size:17px}
+    .topbar .tbf{display:block;width:34px;height:34px;border-radius:50%;background:var(--soft);border:2px solid var(--teal);object-fit:cover}
+    .topbar .d{width:100%;padding:0;justify-content:space-between;flex-direction:row-reverse}
+    .topbar .d span{font-size:12.5px}
+    main.content{padding:16px 14px 96px;max-width:none}
+    .ph{gap:12px;margin-bottom:14px;flex-wrap:nowrap;align-items:flex-start}
+    .ph .big{width:40px;height:40px;font-size:19px}
+    .ph h2{font-size:22px}
+    .ph p{font-size:13px;line-height:1.5}
+    .subnav{gap:8px;margin-bottom:14px}
+    .subnav button{padding:7px 14px;font-size:13px}
+    .kd-row{grid-template-columns:1fr 1fr;gap:10px}
+    .kd{padding:11px 12px}
+    .kd .d{font-size:21px}
+    .kd .t{font-size:12.5px;line-height:1.45}
+    .block{padding:16px 15px;margin-bottom:12px}
+    .block h3{font-size:16.5px}
+    .grid{grid-template-columns:1fr;gap:12px}
+    .stat-row{gap:10px}
+    .stat-row .txt{min-width:0;flex:1 1 100%}
+    table{min-width:0;font-size:13px}
+    th,td{padding:8px 9px}
+    th{font-size:11.5px}
     .menu{grid-template-columns:1fr 1fr}
-    .ph h2{font-size:21px}
+    .day dd{font-size:13.5px}
+    .lk a{display:inline-block;padding:4px 0}
+    .bh .date{margin-left:0;width:100%}
+    .nmodal{align-items:flex-end;padding:0}
+    .nbox{width:100%;border-radius:18px 18px 0 0;padding-bottom:calc(16px + env(safe-area-inset-bottom))}
   }
-  @media (max-width:520px){ .tab .tx{display:none} .menu{grid-template-columns:1fr} .bh .date{margin-left:0;width:100%} }
+  @media (max-width:520px){ .menu{grid-template-columns:1fr} .kd .d{font-size:20px} }
 `;
 
 /* ---------- 클라이언트 스크립트 ---------- */
@@ -499,9 +588,25 @@ const script = `
     try{localStorage.setItem(KEY,n)}catch(e){}
   }
   tabs.forEach(function(t){t.addEventListener('click',function(){show(t.dataset.t,true)})});
+  /* ===== 새 소식 팝업 (슈구리 클릭) ===== */
+  var nm=document.getElementById('newsModal'), mate=document.getElementById('mate');
+  function openNews(){ if(nm){nm.hidden=false;var c=document.getElementById('newsClose');if(c)c.focus();} }
+  function closeNews(){ if(nm){nm.hidden=true;if(mate)mate.focus();} }
+  if(mate&&nm){
+    mate.addEventListener('click',openNews);
+    mate.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openNews();}});
+    document.getElementById('newsClose').addEventListener('click',closeNews);
+    nm.addEventListener('click',function(e){if(e.target===nm)closeNews()});
+    [].forEach.call(nm.querySelectorAll('button[data-nb]'),function(b){b.addEventListener('click',function(){
+      nm.hidden=true; show(b.dataset.nt,true);
+      var el=document.getElementById(b.dataset.nb);
+      if(el){setTimeout(function(){el.scrollIntoView({behavior:'smooth',block:'start'});el.classList.add('blk-flash');setTimeout(function(){el.classList.remove('blk-flash')},1700);},60);}
+    })});
+  }
   [].forEach.call(document.querySelectorAll('[data-go]'),function(b){b.addEventListener('click',function(){var el=document.getElementById(b.dataset.go);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})})});
   document.addEventListener('keydown',function(e){
     if(e.ctrlKey||e.metaKey||e.altKey)return;
+    if(nm&&!nm.hidden){if(e.key==='Escape')closeNews();return;}
     if(e.key==='Escape'&&pop&&!(modal&&!modal.hidden)){closePop();return;}
     if(modal&&!modal.hidden){
       if(e.key==='Escape')modal.hidden=true;
@@ -527,26 +632,27 @@ const html = `<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>슈어소프트 뉴스레터 ${data.issued.replace(/-/g, '.')}</title>
+<title>슈구리 편지 ${data.issued.replace(/-/g, '.')}</title>
+<link rel="icon" id="fav" href="data:,">
 <style>${css}${cardCss}</style>
 </head>
 <body data-issued="${data.issued}">
 <div class="app">
   <aside class="side">
     <div class="brand">
+      <img class="mascot" data-m="face" alt="슈구리">
       <div class="eb">SURESOFT NEWSLETTER</div>
-      <h1>슈어소프트<br>뉴스레터</h1>
+      <h1>슈구리 편지</h1>
       <div class="dt">${issuedLabel} · ${esc(data.range)} 소식</div>
     </div>
     <nav class="tabs" role="tablist" aria-label="뉴스레터 분류">${data.tabs.map(tabBtn).join('')}
-      <div class="nav-sep">만들기</div>
       <button class="tab" role="tab" data-t="${CARD_TAB}" aria-selected="false" aria-controls="p${CARD_TAB}">
-        <span class="no">${CARD_TAB}</span><span class="tx"><span class="tt">카드뉴스</span><span class="ts">이미지로 저장 · 공유</span></span>
+        <span class="no">${CARD_TAB}</span><span class="tx"><span class="tt">카드뉴스</span><span class="tm">카드뉴스</span><span class="ts">이미지로 저장 · 공유</span></span>
       </button></nav>
     ${upcoming()}
   </aside>
   <div class="main">
-    <div class="topbar"><div class="t">뉴스레터</div><div class="d"><button class="btn sm ghost" id="cnReopen">카드뉴스 보기</button><span>${issuedLabel} 발행</span></div></div>
+    <div class="topbar"><div class="t"><img class="tbf" data-m="face" alt="">슈구리 편지</div><div class="d"><button class="btn sm ghost" id="cnReopen">카드뉴스 보기</button><span>${issuedLabel} 발행</span></div></div>
     <main class="content">
       <div class="stale" id="stale"></div>
       ${data.tabs.map(panel).join('')}
@@ -556,6 +662,16 @@ const html = `<!doctype html>
   </div>
 </div>
 ${cardsModal()}
+<aside class="mate" id="mate" role="button" tabindex="0" aria-label="새로 갱신된 소식 보기"><div class="bub">${newCount ? '오늘 배달된 새 소식 <b>' + newCount + '건</b>!<br>나를 눌러 확인하세요' : '오늘도 편지 배달 완료!<br>나를 눌러 확인해 보세요'}</div><img class="mfull" data-m="full" alt=""><img class="mface" data-m="face" alt="">${newCount ? '<span class="mbadge">' + newCount + '</span>' : ''}</aside>
+<div class="nmodal" id="newsModal" role="dialog" aria-modal="true" aria-label="새 소식" hidden>
+  <div class="nbox">
+    <button type="button" class="nclose" id="newsClose" aria-label="닫기">&times;</button>
+    <div class="nhead"><img data-m="face" alt=""><div><h2>슈구리가 배달해 온 새 소식</h2><p>${issuedLabel} 기준 · ${newCount}건</p></div></div>
+    <ul class="nlist">${newsList}</ul>
+    <div class="nfoot">누르면 해당 글로 이동해요</div>
+  </div>
+</div>
+<script>(function(){var M={face:"${FACE}",full:"${FULL}"};document.querySelectorAll("img[data-m]").forEach(function(i){i.src=M[i.dataset.m]});document.getElementById("fav").href=M.face;})();</script>
 <script>${script}</script>
 </body>
 </html>
