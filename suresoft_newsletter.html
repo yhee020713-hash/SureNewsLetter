@@ -193,15 +193,18 @@
   .cnbox{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:6px;cursor:zoom-in;background:#fff;border:1px solid var(--line)}
   .cnscale{position:absolute;left:0;top:0;width:1080px;height:1080px;transform-origin:0 0;transform:scale(var(--s,.25))}
   .cnact{display:flex;gap:8px;margin-top:10px}
-  .cnmodal{position:fixed;inset:0;z-index:100;background:rgba(10,20,30,.82);display:flex;align-items:center;justify-content:center;flex-direction:column}
+  .cnmodal{position:fixed;inset:0;z-index:100;background:rgba(10,20,30,.82);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;padding:max(72px,calc(env(safe-area-inset-top,0px) + 60px)) max(16px,env(safe-area-inset-right,0px)) max(20px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));overflow-y:auto}
   .cnmodal[hidden]{display:none}
+  .cnviewer{position:relative;flex:none}
   .cnstage{position:relative;overflow:hidden;border-radius:10px;background:#fff;box-shadow:0 10px 40px rgba(0,0,0,.5)}
   .cnstage .cnscale{transform:scale(var(--s,.6))}
-  .cnx,.cnnav{position:absolute;background:rgba(255,255,255,.16);color:#fff;border:0;border-radius:50%;width:46px;height:46px;font-size:28px;line-height:1}
-  .cnx{top:18px;right:22px}
-  .cnnav{top:50%;transform:translateY(-50%)} .cnnav.prev{left:22px} .cnnav.next{right:22px}
-  .cnx:hover,.cnnav:hover{background:rgba(255,255,255,.3)}
-  .cnbottom{margin-top:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+  .cnx,.cnnav{position:absolute;z-index:2;display:grid;place-items:center;background:rgba(10,20,30,.88);color:#fff;border:1px solid rgba(255,255,255,.65);border-radius:50%;width:46px;height:46px;padding:0;font-size:32px;line-height:1;box-shadow:0 2px 10px rgba(0,0,0,.3);touch-action:manipulation}
+  .cnx{z-index:3;top:max(12px,calc(env(safe-area-inset-top,0px) + 8px));right:max(16px,env(safe-area-inset-right,0px))}
+  .cnnav{top:50%;transform:translateY(-50%)} .cnnav.prev{left:-60px} .cnnav.next{right:-60px}
+  .cnx:hover,.cnnav:hover{background:#008aa1}
+  .cnx:focus-visible,.cnnav:focus-visible{outline:3px solid #fff;outline-offset:3px}
+  .cnbottom{flex:none;width:100%;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
+  @media (max-width:699px){.cnnav.prev{left:8px}.cnnav.next{right:8px}.cnbottom{gap:8px}.cnbottom .btn{padding:8px 10px}}
   .cncount{color:#fff;font-weight:700;font-size:13px;min-width:44px;text-align:center}
   .cnmodal .btn.ghost{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.35)}
   .cnmodal .btn.ghost:hover{background:rgba(255,255,255,.26)}
@@ -603,9 +606,11 @@
 
   <div class="cnmodal" id="cnModal" role="dialog" aria-modal="true" aria-label="카드뉴스" hidden>
     <button class="cnx" id="cnClose" aria-label="닫기">×</button>
-    <button class="cnnav prev" id="cnPrev" aria-label="이전">‹</button>
-    <div class="cnstage" id="cnStage"></div>
-    <button class="cnnav next" id="cnNext" aria-label="다음">›</button>
+    <div class="cnviewer">
+      <div class="cnstage" id="cnStage"></div>
+      <button class="cnnav prev" id="cnPrev" aria-label="이전">‹</button>
+      <button class="cnnav next" id="cnNext" aria-label="다음">›</button>
+    </div>
     <div class="cnbottom">
       <button class="btn ghost" id="cnSkip">오늘 하루 보지 않기</button>
       <span class="cncount" id="cnCount"></span>
@@ -756,13 +761,16 @@
   function openCard(i,mode){
     var n=document.querySelectorAll('.cnbox').length; cur=(i+n)%n;
     if(mode) modal.dataset.mode=mode;
-    var side=window.innerWidth<700?24:160;
-    var s=Math.min((window.innerHeight-160)/1080,(window.innerWidth-side)/1080,1);
     document.getElementById('cnCount').textContent=(cur+1)+' / '+n;
+    modal.hidden=false;
+    var style=getComputedStyle(modal), bottom=modal.querySelector('.cnbottom');
+    var height=modal.clientHeight-parseFloat(style.paddingTop)-parseFloat(style.paddingBottom)-bottom.offsetHeight-parseFloat(style.rowGap);
+    var width=modal.clientWidth-parseFloat(style.paddingLeft)-parseFloat(style.paddingRight)-(window.innerWidth<700?0:120);
+    var s=Math.max(1/1080,Math.min(height/1080,width/1080,1));
     stage.style.width=stage.style.height=Math.round(1080*s)+'px';
     stage.innerHTML='<div class="cnscale" style="--s:'+s.toFixed(4)+'">'+cardEl(cur).outerHTML+'</div>';
-    modal.hidden=false;
   }
+  window.addEventListener('resize',function(){if(modal&&!modal.hidden)openCard(cur)});
   [].forEach.call(document.querySelectorAll('.cnbox'),function(b){b.addEventListener('click',function(){openCard(+b.dataset.i,'view')})});
   [].forEach.call(document.querySelectorAll('[data-view]'),function(b){b.addEventListener('click',function(){openCard(+b.dataset.view,'view')})});
   var SNOOZE='suresoft-cardnews-snooze';
