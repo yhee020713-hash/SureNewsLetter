@@ -177,11 +177,11 @@ const cardsPanel = (id) => {
 
 const cardsModal = () => `
   <div class="cnmodal" id="cnModal" role="dialog" aria-modal="true" aria-label="카드뉴스" hidden>
-    <button class="cnx" id="cnClose" aria-label="닫기">×</button>
+    <button class="cnx" id="cnClose" aria-label="닫기"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6L18 18M18 6L6 18"/></svg></button>
     <div class="cnviewer">
       <div class="cnstage" id="cnStage"></div>
-      <button class="cnnav prev" id="cnPrev" aria-label="이전">‹</button>
-      <button class="cnnav next" id="cnNext" aria-label="다음">›</button>
+      <button class="cnnav prev" id="cnPrev" aria-label="이전"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 6L9 12L15 18"/></svg></button>
+      <button class="cnnav next" id="cnNext" aria-label="다음"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 6L15 12L9 18"/></svg></button>
     </div>
     <div class="cnbottom">
       <button class="btn ghost" id="cnSkip">오늘 하루 보지 않기</button>
@@ -384,7 +384,8 @@ const css = `
   .cnviewer{position:relative;flex:none}
   .cnstage{position:relative;overflow:hidden;border-radius:10px;background:#fff;box-shadow:0 10px 40px rgba(0,0,0,.5)}
   .cnstage .cnscale{transform:scale(var(--s,.6))}
-  .cnx,.cnnav{position:absolute;z-index:2;display:grid;place-items:center;background:rgba(10,20,30,.88);color:#fff;border:1px solid rgba(255,255,255,.65);border-radius:50%;width:46px;height:46px;padding:0;font-size:32px;line-height:1;box-shadow:0 2px 10px rgba(0,0,0,.3);touch-action:manipulation}
+  .cnx,.cnnav{position:absolute;z-index:2;display:grid;place-items:center;appearance:none;-webkit-appearance:none;background:rgba(10,20,30,.88);color:#fff;border:1px solid rgba(255,255,255,.65);border-radius:50%;width:46px;height:46px;padding:0;line-height:0;box-shadow:0 2px 10px rgba(0,0,0,.3);touch-action:manipulation}
+  .cnx svg,.cnnav svg{display:block;width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
   .cnx{z-index:3;top:max(12px,calc(env(safe-area-inset-top,0px) + 8px));right:max(16px,env(safe-area-inset-right,0px))}
   .cnnav{top:50%;transform:translateY(-50%)} .cnnav.prev{left:-60px} .cnnav.next{right:-60px}
   .cnx:hover,.cnnav:hover{background:#008aa1}
