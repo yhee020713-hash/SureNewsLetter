@@ -3,8 +3,8 @@
 // body 는 HTML 문자열(백틱)입니다. 사용 가능한 CSS 클래스는 build.mjs 의 <style> 참고.
 
 export default {
-  issued: '2026-10-28',          // 발행일 (YYYY-MM-DD)
-  range: '09.28 ~ 10.28',        // 다루는 기간 표시용
+  issued: '2026-10-29',          // 발행일 (YYYY-MM-DD)
+  range: '09.29 ~ 10.29',        // 다루는 기간 표시용
   source: '슈어소프트 그룹웨어 전사 게시판',
 
   // 마감/일정. date 는 마감(종료)일 ISO. 지난 일정은 페이지에서 자동으로 숨겨집니다.
@@ -36,16 +36,16 @@ export default {
         { k: '11/16 월', v: '경조금·동호회비·야근교통비 지급' },
         { k: '11/23 월', v: '개인경비·출장여비 등 지급' },
       ] },
-    { tier: 1, label: '공지사항 · 주간메뉴', title: '이번 주 점심', sub: '10/28 (수) 오늘의 점심',
+    { tier: 1, label: '공지사항 · 주간메뉴', title: '이번 주 점심', sub: '10/29 (목) 오늘의 점심',
       bullets: [
-        'A · 사골미역국',
-        'B · 짜무라이스',
-        '샐러드 t/o · 참치콥샐러드',
+        'A · 황태해장국',
+        'B · 채소듬뿍쫄면',
+        '샐러드 t/o · 두부카츠샐러드',
       ],
       foot: '이번 주 전체 식단은 뉴스레터 본문에서 볼 수 있어요' },
     { tier: 4, label: '기술정보 · 슬기로운 AI 생활', title: 'AI 활용 사례 접수 중', sub: '혼자 쓰기 아까운 AI 활용법, 나눠 주세요',
       rows: [
-        { k: '기간', v: '오늘 10/28 ~ 11/18 (수)' },
+        { k: '기간', v: '10/28 (수) ~ 11/18 (수)' },
         { k: '대상', v: '전 직원 (인턴 포함)' },
         { k: '방법', v: '\'슬기로운 AI 생활\' 게시판에 익명 게시' },
       ] },
@@ -74,7 +74,7 @@ export default {
           links: [['원문 보기 →', 'https://gw.suresofttech.com/app/board/40/post/3850'],
                   ['공지 게시판 (총 17건)', 'https://gw.suresofttech.com/app/board/40']] },
 
-        { anchor: '1.2 재무톡톡', chip: '1.2 재무톡톡', isNew: true,
+        { anchor: '1.2 재무톡톡', chip: '1.2 재무톡톡',
           title: '2026.10월 비용 및 매입 마감 안내',
           date: '10-28', by: '재무기획실 임초빈 사원',
           body: `
@@ -100,7 +100,7 @@ export default {
           links: [['원문 보기 →', 'https://gw.suresofttech.com/app/board/46/post/4004'],
                   ['재무톡톡 게시판 (총 73건)', 'https://gw.suresofttech.com/app/board/46']] },
 
-        { anchor: '1.3 주간메뉴', chip: '1.3 주간메뉴', isNew: true,
+        { anchor: '1.3 주간메뉴', chip: '1.3 주간메뉴',
           title: '이번 주 주간메뉴 <span class="m" style="font-weight:500;font-size:13px">10/26 ~ 10/30</span>',
           date: '10-26', by: '민지애 대리',
           body: `
@@ -125,8 +125,6 @@ export default {
               <li>제어기개발팀 원찬주 전임 조부상 <span class="m">10-21</span></li>
               <li>컬쳐앤인프라팀 하새은 사원 결혼식 <span class="m">10-12</span></li>
               <li>모빌리티솔루션6팀 신재욱 팀장 결혼식 <span class="m">10-06</span></li>
-              <li>모빌리티SW전략3팀 김건식 팀장 출산 <span class="m">09-28</span></li>
-              <li>AI시험인증1팀 허성수 팀장 결혼식 <span class="m">09-18</span></li>
             </ul>`,
           links: [['경조사 게시판 →', 'https://gw.suresofttech.com/app/board/43']] },
       ],
@@ -176,16 +174,16 @@ export default {
     /* ============================ 4. 기술정보·커뮤니티 ============================ */
     {
       id: 4, title: '기술정보·커뮤니티', short: '기술정보', sub: 'AI 사례 · 칭찬',
-      desc: '슬기로운 AI 생활 사례 6건 등록 · 기술 공유 · 칭찬 · 슈구리 배경화면',
+      desc: '슬기로운 AI 생활 사례 7건 등록 · 기술 공유 · 칭찬 · 슈구리 배경화면',
       blocks: [
-        { chip: '기술정보', title: '「2026 슬기로운 AI 생활」 사내 AI 활용 사례 모집', date: '10-21 · 10-28 첫 사례 등록', by: '피플팀', isNew: true,
+        { chip: '기술정보', title: '「2026 슬기로운 AI 생활」 사내 AI 활용 사례 모집', date: '10-21 · 10-28 사례 등록 시작', by: '피플팀',
           body: `
             <ul>
               <li><b>접수 기간</b> 2026.10.28(수) ~ 11.18(수)</li>
               <li><b>응모 대상</b> 전 직원 (인턴 포함, 협력업체 제외)</li>
               <li><b>응모 방법</b> 그룹웨어 '슬기로운 AI 생활' 게시판에 익명으로 게시글 작성 — 업무 적용, 개선 효과, AI 활용 방법을 소개</li>
             </ul>
-            <p class="m" style="margin-top:10px"><b>10/28 오늘 등록된 사례 (6건)</b></p>
+            <p class="m" style="margin-top:10px"><b>10/28 등록된 사례 (7건)</b></p>
             <ul>
               <li>[업무 비서와 반복 작업 자동화] 받은 메일에서 회신할 것만 골라 주고, 사내 규정도 답해 주는 업무 비서 Sure Assistant</li>
               <li>[업무 비서와 반복 작업 자동화] 근무 현황은 한눈에, 시간 계산은 자동으로</li>
@@ -193,6 +191,7 @@ export default {
               <li>[업무 비서와 반복 작업 자동화] 말해 두면 기록하고, 금요일엔 보고서를 써 주는 업무 비서 '하루'</li>
               <li>[업무 비서와 반복 작업 자동화] 슈구리 시간계산기 — 이번 주 근무시간, 슈구리에게 물어보세요</li>
               <li>[자료 조사와 지식 검색] 흩어진 메일 백업 zip 수십 개를 '하나의 메일함'으로 — 메일통합관리 도구</li>
+              <li>[자유 주제] 흩어진 사내 소식을 한눈에, '슈구리 편지'를 소개합니다!</li>
             </ul>`,
           links: [['슬기로운 AI 생활 게시판 →', 'https://gw.suresofttech.com/app/board/411']] },
 
