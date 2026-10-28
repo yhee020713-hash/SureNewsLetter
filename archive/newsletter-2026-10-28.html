@@ -718,18 +718,67 @@
       img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
     });
   }
+  function cardName(i){
+    return 'suresoft-cardnews-'+(document.body.dataset.issued||'')+'-'+(i<9?'0':'')+(i+1)+'.png';
+  }
+  function downloadBlob(blob,name){
+    var url=URL.createObjectURL(blob), a=document.createElement('a');
+    a.href=url; a.download=name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){URL.revokeObjectURL(url)},60000);
+  }
+  // PNG is already compressed; store it directly in a ZIP without external libraries.
+  async function cardsZip(files){
+    var parts=[], entries=[], offset=0;
+    for(var i=0;i<files.length;i++){
+      var bytes=new Uint8Array(await files[i].blob.arrayBuffer());
+      var name=new TextEncoder().encode(files[i].name), crc=0xffffffff;
+      for(var j=0;j<bytes.length;j++){
+        crc^=bytes[j];
+        for(var bit=0;bit<8;bit++) crc=(crc>>>1)^((crc&1)?0xedb88320:0);
+      }
+      crc=(crc^0xffffffff)>>>0;
+      var header=new Uint8Array(30+name.length), h=new DataView(header.buffer);
+      h.setUint32(0,0x04034b50,true); h.setUint16(4,20,true);
+      h.setUint16(6,0x0800,true); h.setUint16(12,33,true);
+      h.setUint32(14,crc,true); h.setUint32(18,bytes.length,true);
+      h.setUint32(22,bytes.length,true); h.setUint16(26,name.length,true);
+      header.set(name,30); parts.push(header,bytes);
+      var entry=new Uint8Array(46+name.length), e=new DataView(entry.buffer);
+      e.setUint32(0,0x02014b50,true); e.setUint16(4,20,true); e.setUint16(6,20,true);
+      e.setUint16(8,0x0800,true); e.setUint16(14,33,true);
+      e.setUint32(16,crc,true); e.setUint32(20,bytes.length,true);
+      e.setUint32(24,bytes.length,true); e.setUint16(28,name.length,true);
+      e.setUint32(42,offset,true); entry.set(name,46); entries.push(entry);
+      offset+=header.length+bytes.length;
+    }
+    var size=entries.reduce(function(n,e){return n+e.length},0);
+    var end=new Uint8Array(22), v=new DataView(end.buffer);
+    v.setUint32(0,0x06054b50,true); v.setUint16(8,files.length,true);
+    v.setUint16(10,files.length,true); v.setUint32(12,size,true); v.setUint32(16,offset,true);
+    return new Blob(parts.concat(entries,[end]),{type:'application/zip'});
+  }
   function saveCard(i){
-    var name='suresoft-cardnews-'+(document.body.dataset.issued||'')+'-'+(i<9?'0':'')+(i+1)+'.png';
-    return cardPng(i).then(function(b){
-      var a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download=name;
-      document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){URL.revokeObjectURL(a.href)},2000);
-    }).catch(function(){ alert('이미지 저장에 실패했습니다. 브라우저를 Chrome/Edge 최신 버전으로 사용하거나 카드를 화면 캡처해 주세요.'); });
+    return cardPng(i).then(function(b){downloadBlob(b,cardName(i));})
+      .catch(function(){ alert('이미지 저장에 실패했습니다. 브라우저를 Chrome/Edge 최신 버전으로 사용하거나 카드를 화면 캡처해 주세요.'); });
   }
   [].forEach.call(document.querySelectorAll('[data-save]'),function(b){b.addEventListener('click',function(){saveCard(+b.dataset.save)})});
   var allBtn=document.getElementById('cnAll');
-  if(allBtn) allBtn.addEventListener('click',function(){
-    var n=document.querySelectorAll('.cnbox').length, k=0; allBtn.disabled=true;
-    (function next(){ if(k>=n){allBtn.disabled=false;return;} saveCard(k++).then(function(){setTimeout(next,350)}); })();
+  if(allBtn) allBtn.addEventListener('click',async function(){
+    var n=document.querySelectorAll('.cnbox').length, label=allBtn.textContent, files=[];
+    allBtn.disabled=true;
+    try{
+      for(var i=0;i<n;i++){
+        allBtn.textContent='PNG 만드는 중 ('+(i+1)+'/'+n+')';
+        files.push({name:cardName(i),blob:await cardPng(i)});
+      }
+      allBtn.textContent='ZIP 만드는 중';
+      downloadBlob(await cardsZip(files),'suresoft-cardnews-'+(document.body.dataset.issued||'')+'.zip');
+    }catch(e){
+      alert('전체 PNG 저장에 실패했습니다. 다시 시도하거나 개별 PNG 저장을 이용해 주세요.');
+    }finally{
+      allBtn.disabled=false; allBtn.textContent=label;
+    }
   });
   var modal=document.getElementById('cnModal'), stage=document.getElementById('cnStage'), cur=0;
   function openCard(i,mode){
