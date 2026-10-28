@@ -204,7 +204,13 @@
   .cnx:hover,.cnnav:hover{background:#008aa1}
   .cnx:focus-visible,.cnnav:focus-visible{outline:3px solid #fff;outline-offset:3px}
   .cnbottom{flex:none;width:100%;display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center}
-  @media (max-width:699px){.cnnav.prev{left:8px}.cnnav.next{right:8px}.cnbottom{gap:8px}.cnbottom .btn{padding:8px 10px}}
+  @media (max-width:699px){
+    .cnviewer{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .cnstage{grid-column:1 / -1;justify-self:center}
+    .cnnav{position:static;transform:none}
+    .cnnav.prev{justify-self:end}.cnnav.next{justify-self:start}
+    .cnbottom{gap:8px}.cnbottom .btn{padding:8px 10px}
+  }
   .cncount{color:#fff;font-weight:700;font-size:13px;min-width:44px;text-align:center}
   .cnmodal .btn.ghost{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.35)}
   .cnmodal .btn.ghost:hover{background:rgba(255,255,255,.26)}
@@ -764,7 +770,8 @@
     document.getElementById('cnCount').textContent=(cur+1)+' / '+n;
     modal.hidden=false;
     var style=getComputedStyle(modal), bottom=modal.querySelector('.cnbottom');
-    var height=modal.clientHeight-parseFloat(style.paddingTop)-parseFloat(style.paddingBottom)-bottom.offsetHeight-parseFloat(style.rowGap);
+    var navHeight=window.innerWidth<700?modal.querySelector('.cnnav').offsetHeight+12:0;
+    var height=modal.clientHeight-parseFloat(style.paddingTop)-parseFloat(style.paddingBottom)-bottom.offsetHeight-parseFloat(style.rowGap)-navHeight;
     var width=modal.clientWidth-parseFloat(style.paddingLeft)-parseFloat(style.paddingRight)-(window.innerWidth<700?0:120);
     var s=Math.max(1/1080,Math.min(height/1080,width/1080,1));
     stage.style.width=stage.style.height=Math.round(1080*s)+'px';
