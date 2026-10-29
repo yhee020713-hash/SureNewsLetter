@@ -174,7 +174,7 @@ export default {
     /* ============================ 4. 기술정보·커뮤니티 ============================ */
     {
       id: 4, title: '기술정보·커뮤니티', short: '기술정보', sub: 'AI 사례 · 칭찬',
-      desc: '슬기로운 AI 생활 사례 7건 등록 · 기술 공유 · 칭찬 · 슈구리 배경화면',
+      desc: '슬기로운 AI 생활 사례 7건 등록 · Agent Catalog·AIV Lab 세미나 공유 · 칭찬 · 슈구리 배경화면',
       blocks: [
         { chip: '기술정보', title: '「2026 슬기로운 AI 생활」 사내 AI 활용 사례 모집', date: '10-21 · 10-28 사례 등록 시작', by: '피플팀',
           body: `
@@ -195,12 +195,13 @@ export default {
             </ul>`,
           links: [['슬기로운 AI 생활 게시판 →', 'https://gw.suresofttech.com/app/board/411']] },
 
-        { chip: '기술정보', title: '최근 기술 공유',
+        { chip: '기술정보', title: '최근 기술 공유', isNew: true,
           body: `
             <ul>
+              <li>[AIV Lab 정기 세미나] 2026 제5회 발표자료·영상 공유 <span class="m">10-29 · 강규황 수석연구원</span></li>
+              <li>Agent Catalog 소개 - ALIRA-AI HUB <span class="m">10-28 · 여용수 수석연구원</span></li>
               <li>AI 활용해서 티트리 PC 버전 자동 로그인 안 되던 버그 고친 사례 공유 <span class="m">09-23 · 이성건 책임연구원</span></li>
               <li>자율주행 모빌리티 산업전 2026 참관 내용 공유 1~4편(완) <span class="m">08-31 ~ 09-03 · 이성건 책임연구원</span></li>
-              <li>[AIV Lab 정기 세미나] 2026 제5회 발표자료·영상 공유 <span class="m">08-26 · 강규황 수석연구원</span></li>
             </ul>`,
           links: [['기술지식 공유게시판', 'https://gw.suresofttech.com/app/board/55'],
                   ['AI 활용 사례 공유', 'https://gw.suresofttech.com/app/board/280']] },
