@@ -10,7 +10,6 @@ export default {
   // 마감/일정. date 는 마감(종료)일 ISO. 지난 일정은 페이지에서 자동으로 숨겨집니다.
   //   card:true → 공지사항 탭 상단 카드,  side → 사이드바 "다가오는 일정" 문구
   deadlines: [
-    { date: '2026-10-28', side: 'AI 생활 사례 접수 시작', sideShort: '10/28' },
     { date: '2026-11-05', big: '11/05', small: '목', hot: true, card: true,
       text: '11월 임직원 경비 접수마감<br>10월 비용·매입 마감 제출', side: '임직원 경비·10월 비용 마감' },
     { date: '2026-11-09', side: '거래처 대금 접수마감 (2차)' },
@@ -96,7 +95,7 @@ export default {
               <tr><td class="dl">~ 11/23 (월)</td><td class="pay">11/30 (월)</td></tr>
             </table></div>
             <div class="note">접수마감은 결재가 완료되어 재무기획실 합의 전 단계로 넘어오는 기준일입니다.</div>
-            <p class="m" style="margin-top:12px">이전 · 2026년 10월 지급일정 공지(09-16) · 2026.9월 비용 및 매입 마감 안내(09-23, 제출 10/07까지 — 마감 종료)</p>`,
+`,
           links: [['원문 보기 →', 'https://gw.suresofttech.com/app/board/46/post/4004'],
                   ['재무톡톡 게시판 (총 73건)', 'https://gw.suresofttech.com/app/board/46']] },
 
@@ -113,10 +112,10 @@ export default {
             </div>`,
           links: [['주간식단표 원문(PDF) →', 'https://gw.suresofttech.com/app/board/380/post/4096']] },
 
-        { anchor: '1.4 나머지', chip: '1.4 나머지', half: true, title: '인사발령', date: '09-21 ~ 10-16',
+        { anchor: '1.4 나머지', chip: '1.4 나머지', half: true, title: '인사발령', date: '09-30 ~ 10-16',
           body: `
-            <div class="tags"><span>채용 1</span><span>퇴직 3</span><span>휴직 2</span><span>겸직 1</span></div>
-            <p class="m">기간 내 등록 7건</p>`,
+            <div class="tags"><span>퇴직 2</span><span>휴직 1</span><span>겸직 1</span></div>
+            <p class="m">기간 내 등록 4건</p>`,
           links: [['인사발령 게시판 →', 'https://gw.suresofttech.com/app/board/41']] },
 
         { chip: '1.4 나머지', half: true, title: '경조사',
@@ -146,25 +145,14 @@ export default {
     /* ============================ 3. 회사생활 ============================ */
     {
       id: 3, title: '회사생활', short: '회사생활', sub: '가이드 · 문의',
-      desc: '회사 생활 가이드 → 문의 · 기술지원 · SW/도서',
+      desc: '이번 기간 새 글 없음 (가이드 · 문의 · 기술지원 · SW/도서)',
       blocks: [
         { chip: '3.1 회사 생활 가이드', title: '최근 등록된 가이드',
-          body: `
-            <ul>
-              <li><b>[파견비신청서] 작성가이드 및 질의응답(FAQ) 안내</b> <span class="m">09-03 · 엄유진 대리</span></li>
-              <li><b>[안내] 판교사옥 식당 이용 순서 안내 (2026.09.02~)</b> <span class="m">09-01 · 민지애 대리</span></li>
-              <li>셔틀 · 통근버스 시간표 (2026.08.03~) <span class="m">07-27</span></li>
-              <li>[공지] 주차장 이용 수칙 안내 <span class="m">07-27</span></li>
-            </ul>`,
+          body: `<p class="m">이번 기간 새 글 없음</p>`,
           links: [['회사 생활 가이드 게시판 (총 21건) →', 'https://gw.suresofttech.com/app/board/48']] },
 
         { chip: '3.2 나머지', title: '문의 · 기술지원 · SW/도서',
-          body: `
-            <ul>
-              <li>대전지역 근무자 명절 선물 수령 관련 문의 <span class="m">09-08 · 답글 5</span></li>
-              <li>SW/도서: 2026.08.10 표준문서 목록 <span class="m">08-10</span></li>
-              <li>회사 기술지원: NAC 메뉴얼 <span class="m">25-08-27</span></li>
-            </ul>`,
+          body: `<p class="m">이번 기간 새 글 없음</p>`,
           links: [['회사 생활 문의', 'https://gw.suresofttech.com/app/board/49'],
                   ['회사 기술지원', 'https://gw.suresofttech.com/app/board/50'],
                   ['SW/도서', 'https://gw.suresofttech.com/app/board/52']] },
@@ -204,8 +192,6 @@ export default {
             <ul>
               <li>[AIV Lab 정기 세미나] 2026 제5회 발표자료·영상 공유 <span class="m">10-29 · 강규황 수석연구원</span></li>
               <li>Agent Catalog 소개 - ALIRA-AI HUB <span class="m">10-28 · 여용수 수석연구원</span></li>
-              <li>AI 활용해서 티트리 PC 버전 자동 로그인 안 되던 버그 고친 사례 공유 <span class="m">09-23 · 이성건 책임연구원</span></li>
-              <li>자율주행 모빌리티 산업전 2026 참관 내용 공유 1~4편(완) <span class="m">08-31 ~ 09-03 · 이성건 책임연구원</span></li>
             </ul>`,
           links: [['기술지식 공유게시판', 'https://gw.suresofttech.com/app/board/55'],
                   ['AI 활용 사례 공유', 'https://gw.suresofttech.com/app/board/280']] },
@@ -215,12 +201,11 @@ export default {
             <ul>
               <li>PL팀 서혜원 전임 / 곽충석 팀장 <span class="m">10-21</span></li>
               <li>모빌리티SW전략4팀 안신영 수석 <span class="m">10-16</span></li>
-              <li>피플팀 천선영 사원 <span class="m">09-29</span></li>
             </ul>`,
           links: [['더 보기 →', 'https://gw.suresofttech.com/app/board/58']] },
 
         { chip: '처음 뵙겠습니다', half: true, title: '처음 뵙겠습니다',
-          body: `<ul><li>AI모델검증솔루션팀 김진 전임 <span class="m">09-21 입사</span></li></ul>`,
+          body: `<p class="m">이번 기간 새 글 없음</p>`,
           links: [['더 보기 →', 'https://gw.suresofttech.com/app/board/61']] },
 
         { chip: '자유게시판', half: true, title: '자유게시판',
@@ -236,7 +221,6 @@ export default {
           body: `
             <ul>
               <li>경조 축하금·송별회 지원금 전달 8건 <span class="m">10-19</span></li>
-              <li>2026년 추석 명절 선물 관련 공지 <span class="m">09-22</span></li>
             </ul>`,
           links: [['더 보기 →', 'https://gw.suresofttech.com/app/board/62']] },
       ],
