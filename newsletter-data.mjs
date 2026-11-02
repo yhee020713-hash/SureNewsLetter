@@ -3,8 +3,8 @@
 // body 는 HTML 문자열(백틱)입니다. 사용 가능한 CSS 클래스는 build.mjs 의 <style> 참고.
 
 export default {
-  issued: '2026-10-30',          // 발행일 (YYYY-MM-DD)
-  range: '09.30 ~ 10.30',        // 다루는 기간 표시용
+  issued: '2026-11-02',          // 발행일 (YYYY-MM-DD)
+  range: '10.02 ~ 11.02',      // 다루는 기간 표시용
   source: '슈어소프트 그룹웨어 전사 게시판',
 
   // 마감/일정. date 는 마감(종료)일 ISO. 지난 일정은 페이지에서 자동으로 숨겨집니다.
@@ -25,9 +25,6 @@ export default {
   //   + 본문 형태 하나: big{num,unit,cap} | rows[{k,v,hot}] | bullets[문자열]
   //   + foot(선택, 하단 한 줄 안내)
   cards: [
-    { tier: 1, label: '공지사항 · 공지', title: '사내문화 개선 캠페인', sub: '이번 달 주제는 \'출근시간 준수\'',
-      big: { num: '99.67', unit: '%', cap: '코어타임 전 출근 비율 (1~7월)' },
-      foot: '지금처럼 여유 있게 출근해 주세요' },
     { tier: 1, label: '공지사항 · 재무톡톡', title: '11월 지급일정 안내', sub: '재무기획실 접수마감 기준 · 놓치지 마세요',
       rows: [
         { k: '11/05 목', v: '임직원 경비 접수·10월 비용 마감', hot: true },
@@ -35,11 +32,11 @@ export default {
         { k: '11/16 월', v: '경조금·동호회비·야근교통비 지급' },
         { k: '11/23 월', v: '개인경비·출장여비 등 지급' },
       ] },
-    { tier: 1, label: '공지사항 · 주간메뉴', title: '이번 주 점심', sub: '10/30 (금) 오늘의 점심',
+    { tier: 1, label: '공지사항 · 주간메뉴', title: '이번 주 점심', sub: '11/02 (월) 오늘의 점심',
       bullets: [
-        'A · 닭곰탕·소면사리',
-        'B · 제육비빔밥',
-        '샐러드 t/o · 두부면참치샐러드',
+        'A · 짬뽕순두부찌개·쫄면사리',
+        'B · 로제치킨까스·구운채소',
+        '샐러드 t/o · 치킨텐더샐러드',
       ],
       foot: '이번 주 전체 식단은 뉴스레터 본문에서 볼 수 있어요' },
     { tier: 4, label: '기술정보 · 슬기로운 AI 생활', title: 'AI 활용 사례 접수 중', sub: '혼자 쓰기 아까운 AI 활용법, 나눠 주세요',
@@ -50,9 +47,9 @@ export default {
       ] },
     { tier: 4, label: '커뮤니티', title: '이번 주 사내 소식',
       bullets: [
+        '슈어 콘텐츠 캘린더 · 2026년 11월',
         '월간 슈구리 배경화면 · 2026년 11월',
-        '칭찬합니다 · PL팀 서혜원 전임 / 곽충석 팀장',
-        '출장비용지급품의 작성기 공유 (좋아요 17)',
+        '칭찬합니다 · 품질보증팀 허성수 책임',
       ] },
   ],
 
@@ -60,18 +57,12 @@ export default {
     /* ============================ 1. 공지사항 ============================ */
     {
       id: 1, title: '공지사항', short: '공지사항', sub: '공지 · 재무 · 식단',
-      desc: '10월 비용·매입 마감 제출 11/05 · 11월 지급일정 · 이번 주 식단 · 경조사·인사발령',
+      desc: '10월 비용·매입 마감 제출 11/05 · 11월 지급일정 · 11/02 주 식단 · 경조사·인사발령',
       showDeadlines: true,
       blocks: [
-        { anchor: '1.1 공지', chip: '1.1 공지', title: '[공지] 사내문화 개선 캠페인 (26.09)',
-          date: '09-15', by: '피플팀 천선영 사원',
-          body: `
-            <div class="stat-row">
-              <div class="stat"><div class="num">99.67<sup>%</sup></div><div class="cap">코어타임 전 출근 비율 (1~7월)</div></div>
-              <div class="txt"><p>이번 달 캠페인 주제는 <b>'출근시간 준수'</b>입니다. 지금처럼 코어타임 시작 전 여유 있게 출근해 원활하게 업무를 시작해 달라는 안내입니다.</p></div>
-            </div>`,
-          links: [['원문 보기 →', 'https://gw.suresofttech.com/app/board/40/post/3850'],
-                  ['공지 게시판 (총 17건)', 'https://gw.suresofttech.com/app/board/40']] },
+        { anchor: '1.1 공지', chip: '1.1 공지', title: '공지',
+          body: `<p class="m">이번 기간 새 글 없음 (최근 글: 사내문화 개선 캠페인 26.09, 09-15)</p>`,
+          links: [['공지 게시판 (총 17건)', 'https://gw.suresofttech.com/app/board/40']] },
 
         { anchor: '1.2 재무톡톡', chip: '1.2 재무톡톡',
           title: '2026.10월 비용 및 매입 마감 안내',
@@ -100,22 +91,22 @@ export default {
                   ['재무톡톡 게시판 (총 73건)', 'https://gw.suresofttech.com/app/board/46']] },
 
         { anchor: '1.3 주간메뉴', chip: '1.3 주간메뉴',
-          title: '이번 주 주간메뉴 <span class="m" style="font-weight:500;font-size:13px">10/26 ~ 10/30</span>',
-          date: '10-26', by: '민지애 대리',
+          title: '이번 주 주간메뉴 <span class="m" style="font-weight:500;font-size:13px">11/02 ~ 11/06</span>',
+          date: '11-02', by: '민지애 대리', isNew: true,
           body: `
             <div class="menu">
-              <div class="day" data-date="2026-10-26"><div class="dh">월 10/26</div><dl><dt>A</dt><dd>뼈없는순살감자탕</dd><dt>B</dt><dd>카레라이스·구운채소</dd><dt>샐러드 t/o</dt><dd class="s">두부가라아게샐러드</dd></dl></div>
-              <div class="day" data-date="2026-10-27"><div class="dh">화 10/27</div><dl><dt>A</dt><dd>콩나물밥·양념장</dd><dt>B</dt><dd>베이컨깍두기볶음밥·계란프라이</dd><dt>샐러드 t/o</dt><dd class="s">치킨텐더샐러드</dd></dl></div>
-              <div class="day" data-date="2026-10-28"><div class="dh">수 10/28</div><dl><dt>A</dt><dd>사골미역국</dd><dt>B</dt><dd>짜무라이스</dd><dt>샐러드 t/o</dt><dd class="s">참치콥샐러드</dd></dl></div>
-              <div class="day" data-date="2026-10-29"><div class="dh">목 10/29</div><dl><dt>A</dt><dd>황태해장국</dd><dt>B</dt><dd>채소듬뿍쫄면</dd><dt>샐러드 t/o</dt><dd class="s">두부카츠샐러드</dd></dl></div>
-              <div class="day" data-date="2026-10-30"><div class="dh">금 10/30</div><dl><dt>A</dt><dd>닭곰탕·소면사리</dd><dt>B</dt><dd>제육비빔밥</dd><dt>샐러드 t/o</dt><dd class="s">두부면참치샐러드</dd></dl></div>
+              <div class="day" data-date="2026-11-02"><div class="dh">월 11/02</div><dl><dt>A</dt><dd>짬뽕순두부찌개·쫄면사리</dd><dt>B</dt><dd>로제치킨까스·구운채소</dd><dt>샐러드 t/o</dt><dd class="s">치킨텐더샐러드</dd></dl></div>
+              <div class="day" data-date="2026-11-03"><div class="dh">화 11/03</div><dl><dt>A</dt><dd>콩나물해장국·계란한알</dd><dt>B</dt><dd>떡볶이·모듬튀김</dd><dt>샐러드 t/o</dt><dd class="s">스모크덕푸실리샐러드</dd></dl></div>
+              <div class="day" data-date="2026-11-04"><div class="dh">수 11/04</div><dl><dt>A</dt><dd>뚝배기날치알밥</dd><dt>B</dt><dd>카라이라멘</dd><dt>샐러드 t/o</dt><dd class="s">오렌지닭가슴살샐러드</dd></dl></div>
+              <div class="day" data-date="2026-11-05"><div class="dh">목 11/05</div><dl><dt>A</dt><dd>고사리육개장</dd><dt>B</dt><dd>부타동</dd><dt>샐러드 t/o</dt><dd class="s">두부텐더샐러드</dd></dl></div>
+              <div class="day" data-date="2026-11-06"><div class="dh">금 11/06</div><dl><dt>A</dt><dd>숙주간장불고기</dd><dt>B</dt><dd>마제덮밥</dd><dt>샐러드 t/o</dt><dd class="s">시저샐러드</dd></dl></div>
             </div>`,
-          links: [['주간식단표 원문(PDF) →', 'https://gw.suresofttech.com/app/board/380/post/4096']] },
+          links: [['주간식단표 원문(PDF) →', 'https://gw.suresofttech.com/app/board/380/post/4192']] },
 
-        { anchor: '1.4 나머지', chip: '1.4 나머지', half: true, title: '인사발령', date: '09-30 ~ 10-16',
+        { anchor: '1.4 나머지', chip: '1.4 나머지', half: true, title: '인사발령', date: '10-01 ~ 10-16',
           body: `
-            <div class="tags"><span>퇴직 2</span><span>휴직 1</span><span>겸직 1</span></div>
-            <p class="m">기간 내 등록 4건</p>`,
+            <div class="tags"><span>퇴직 1</span><span>휴직 1</span><span>겸직 1</span></div>
+            <p class="m">기간 내 등록 3건</p>`,
           links: [['인사발령 게시판 →', 'https://gw.suresofttech.com/app/board/41']] },
 
         { chip: '1.4 나머지', half: true, title: '경조사',
@@ -162,7 +153,7 @@ export default {
     /* ============================ 4. 기술정보·커뮤니티 ============================ */
     {
       id: 4, title: '기술정보·커뮤니티', short: '기술정보', sub: 'AI 사례 · 칭찬',
-      desc: '슬기로운 AI 생활 사례 13건 등록 · Agent Catalog·AIV Lab 세미나 공유 · 칭찬 · 슈구리 배경화면',
+      desc: '슬기로운 AI 생활 사례 15건 등록 · Agent Catalog·AIV Lab 세미나 공유 · 칭찬 · 11월 슈구리 배경화면·콘텐츠 캘린더',
       blocks: [
         { chip: '기술정보', title: '「2026 슬기로운 AI 생활」 사내 AI 활용 사례 모집', date: '10-21 · 10-28 사례 등록 시작', by: '피플팀', isNew: true,
           body: `
@@ -171,7 +162,7 @@ export default {
               <li><b>응모 대상</b> 전 직원 (인턴 포함, 협력업체 제외)</li>
               <li><b>응모 방법</b> 그룹웨어 '슬기로운 AI 생활' 게시판에 익명으로 게시글 작성 — 업무 적용, 개선 효과, AI 활용 방법을 소개</li>
             </ul>
-            <p class="m" style="margin-top:10px"><b>10/28~30 등록된 사례 (13건)</b></p>
+            <p class="m" style="margin-top:10px"><b>10/28~11/02 등록된 사례 (15건)</b></p>
             <ul>
               <li>[업무 비서와 반복 작업 자동화] 받은 메일에서 회신할 것만 골라 주고, 사내 규정도 답해 주는 업무 비서 Sure Assistant</li>
               <li>[업무 비서와 반복 작업 자동화] 근무 현황은 한눈에, 시간 계산은 자동으로</li>
@@ -186,6 +177,8 @@ export default {
               <li>[업무 비서와 반복 작업 자동화] Mail Checker: 메일을 보내기 전에 빠뜨린 내용이 없는지 한 번 더 확인 <span class="m">10-29</span></li>
               <li>[업무 비서와 반복 작업 자동화] 표지 서명, 이제 클릭 세 번이면 끝납니다 — 산출물 승인란 서명·결재 자동화 도구 <span class="m">10-30</span></li>
               <li>[자유 주제] Tactix — 사내 메신저 확장 프로그램 <span class="m">10-30</span></li>
+              <li>[문서와 발표 자료] [다읽기싫어] "그거 몇 쪽에 있었더라?" 100쪽짜리 문서, 다 읽지 말고 물어보세요 <span class="m">10-30</span></li>
+              <li>[문서와 발표 자료] "스킬 하나로 리뷰 준비 시간 1/10" — 역대급 AI 활용법 [짚 : 핵심만 간결하게] <span class="m">11-02</span></li>
             </ul>`,
           links: [['슬기로운 AI 생활 게시판 →', 'https://gw.suresofttech.com/app/board/411']] },
 
@@ -201,6 +194,7 @@ export default {
         { chip: '칭찬합니다', half: true, title: '칭찬합니다',
           body: `
             <ul>
+              <li>품질보증팀 허성수 책임 <span class="m">11-02</span></li>
               <li>PL팀 서혜원 전임 / 곽충석 팀장 <span class="m">10-21</span></li>
               <li>모빌리티SW전략4팀 안신영 수석 <span class="m">10-16</span></li>
             </ul>`,
