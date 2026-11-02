@@ -4,7 +4,7 @@
 
 export default {
   issued: '2026-11-02',          // 발행일 (YYYY-MM-DD)
-  range: '10.02 ~ 11.02',      // 다루는 기간 표시용
+  range: '10.03 ~ 11.02',      // 다루는 기간 표시용
   source: '슈어소프트 그룹웨어 전사 게시판',
 
   // 마감/일정. date 는 마감(종료)일 ISO. 지난 일정은 페이지에서 자동으로 숨겨집니다.
@@ -103,10 +103,10 @@ export default {
             </div>`,
           links: [['주간식단표 원문(PDF) →', 'https://gw.suresofttech.com/app/board/380/post/4192']] },
 
-        { anchor: '1.4 나머지', chip: '1.4 나머지', half: true, title: '인사발령', date: '10-01 ~ 10-16',
+        { anchor: '1.4 나머지', chip: '1.4 나머지', half: true, title: '인사발령', date: '10-06 ~ 10-16',
           body: `
-            <div class="tags"><span>퇴직 1</span><span>휴직 1</span><span>겸직 1</span></div>
-            <p class="m">기간 내 등록 3건</p>`,
+            <div class="tags"><span>퇴직 1</span><span>휴직 1</span></div>
+            <p class="m">기간 내 등록 2건</p>`,
           links: [['인사발령 게시판 →', 'https://gw.suresofttech.com/app/board/41']] },
 
         { chip: '1.4 나머지', half: true, title: '경조사',
@@ -153,7 +153,7 @@ export default {
     /* ============================ 4. 기술정보·커뮤니티 ============================ */
     {
       id: 4, title: '기술정보·커뮤니티', short: '기술정보', sub: 'AI 사례 · 칭찬',
-      desc: '슬기로운 AI 생활 사례 15건 등록 · Agent Catalog·AIV Lab 세미나 공유 · 칭찬 · 11월 슈구리 배경화면·콘텐츠 캘린더',
+      desc: '슬기로운 AI 생활 사례 18건 등록 · Agent Catalog·AIV Lab 세미나 공유 · 칭찬 · 11월 슈구리 배경화면·콘텐츠 캘린더',
       blocks: [
         { chip: '기술정보', title: '「2026 슬기로운 AI 생활」 사내 AI 활용 사례 모집', date: '10-21 · 10-28 사례 등록 시작', by: '피플팀', isNew: true,
           body: `
@@ -162,7 +162,7 @@ export default {
               <li><b>응모 대상</b> 전 직원 (인턴 포함, 협력업체 제외)</li>
               <li><b>응모 방법</b> 그룹웨어 '슬기로운 AI 생활' 게시판에 익명으로 게시글 작성 — 업무 적용, 개선 효과, AI 활용 방법을 소개</li>
             </ul>
-            <p class="m" style="margin-top:10px"><b>10/28~11/02 등록된 사례 (15건)</b></p>
+            <p class="m" style="margin-top:10px"><b>10/28~11/02 등록된 사례 (18건)</b></p>
             <ul>
               <li>[업무 비서와 반복 작업 자동화] 받은 메일에서 회신할 것만 골라 주고, 사내 규정도 답해 주는 업무 비서 Sure Assistant</li>
               <li>[업무 비서와 반복 작업 자동화] 근무 현황은 한눈에, 시간 계산은 자동으로</li>
@@ -179,6 +179,9 @@ export default {
               <li>[자유 주제] Tactix — 사내 메신저 확장 프로그램 <span class="m">10-30</span></li>
               <li>[문서와 발표 자료] [다읽기싫어] "그거 몇 쪽에 있었더라?" 100쪽짜리 문서, 다 읽지 말고 물어보세요 <span class="m">10-30</span></li>
               <li>[문서와 발표 자료] "스킬 하나로 리뷰 준비 시간 1/10" — 역대급 AI 활용법 [짚 : 핵심만 간결하게] <span class="m">11-02</span></li>
+              <li>[문서와 발표 자료] 그때 만든 그 보고서… 뭐였더라? 기존 보고자료를 찾아 새 보고서로 엮고 AI 수정까지! &lt;Power Point Report Searcher&gt; <span class="m">11-02</span></li>
+              <li>[자료 조사와 지식 검색] 해피런치 메뉴 추천 <span class="m">11-02</span></li>
+              <li>[개발과 검증] [앞뒤맞춤] 산출물끼리 안 맞는 번호와 숫자를 제출 전에 먼저 찾아요 <span class="m">11-02</span></li>
             </ul>`,
           links: [['슬기로운 AI 생활 게시판 →', 'https://gw.suresofttech.com/app/board/411']] },
 
