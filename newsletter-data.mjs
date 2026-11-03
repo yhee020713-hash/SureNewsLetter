@@ -3,8 +3,8 @@
 // body 는 HTML 문자열(백틱)입니다. 사용 가능한 CSS 클래스는 build.mjs 의 <style> 참고.
 
 export default {
-  issued: '2026-11-02',          // 발행일 (YYYY-MM-DD)
-  range: '10.03 ~ 11.02',      // 다루는 기간 표시용
+  issued: '2026-11-03',          // 발행일 (YYYY-MM-DD)
+  range: '10.04 ~ 11.03',      // 다루는 기간 표시용
   source: '슈어소프트 그룹웨어 전사 게시판',
 
   // 마감/일정. date 는 마감(종료)일 ISO. 지난 일정은 페이지에서 자동으로 숨겨집니다.
@@ -32,11 +32,11 @@ export default {
         { k: '11/16 월', v: '경조금·동호회비·야근교통비 지급' },
         { k: '11/23 월', v: '개인경비·출장여비 등 지급' },
       ] },
-    { tier: 1, label: '공지사항 · 주간메뉴', title: '이번 주 점심', sub: '11/02 (월) 오늘의 점심',
+    { tier: 1, label: '공지사항 · 주간메뉴', title: '이번 주 점심', sub: '11/03 (화) 오늘의 점심',
       bullets: [
-        'A · 짬뽕순두부찌개·쫄면사리',
-        'B · 로제치킨까스·구운채소',
-        '샐러드 t/o · 치킨텐더샐러드',
+        'A · 콩나물해장국·계란한알',
+        'B · 떡볶이·모듬튀김',
+        '샐러드 t/o · 스모크덕푸실리샐러드',
       ],
       foot: '이번 주 전체 식단은 뉴스레터 본문에서 볼 수 있어요' },
     { tier: 4, label: '기술정보 · 슬기로운 AI 생활', title: 'AI 활용 사례 접수 중', sub: '혼자 쓰기 아까운 AI 활용법, 나눠 주세요',
@@ -57,7 +57,7 @@ export default {
     /* ============================ 1. 공지사항 ============================ */
     {
       id: 1, title: '공지사항', short: '공지사항', sub: '공지 · 재무 · 식단',
-      desc: '10월 비용·매입 마감 제출 11/05 · 11월 지급일정 · 11/02 주 식단 · 경조사·인사발령',
+      desc: '10월 비용·매입 마감 제출 11/05 · 11월 지급일정 · 11/03 오늘 식단(11/02 주) · 경조사·인사발령',
       showDeadlines: true,
       blocks: [
         { anchor: '1.1 공지', chip: '1.1 공지', title: '공지',
@@ -92,7 +92,7 @@ export default {
 
         { anchor: '1.3 주간메뉴', chip: '1.3 주간메뉴',
           title: '이번 주 주간메뉴 <span class="m" style="font-weight:500;font-size:13px">11/02 ~ 11/06</span>',
-          date: '11-02', by: '민지애 대리', isNew: true,
+          date: '11-02', by: '민지애 대리',
           body: `
             <div class="menu">
               <div class="day" data-date="2026-11-02"><div class="dh">월 11/02</div><dl><dt>A</dt><dd>짬뽕순두부찌개·쫄면사리</dd><dt>B</dt><dd>로제치킨까스·구운채소</dd><dt>샐러드 t/o</dt><dd class="s">치킨텐더샐러드</dd></dl></div>
@@ -153,7 +153,7 @@ export default {
     /* ============================ 4. 기술정보·커뮤니티 ============================ */
     {
       id: 4, title: '기술정보·커뮤니티', short: '기술정보', sub: 'AI 사례 · 칭찬',
-      desc: '슬기로운 AI 생활 사례 18건 등록 · Agent Catalog·AIV Lab 세미나 공유 · 칭찬 · 11월 슈구리 배경화면·콘텐츠 캘린더',
+      desc: '슬기로운 AI 생활 사례 19건 등록 · Agent Catalog·AIV Lab 세미나 공유 · 칭찬 · 11월 슈구리 배경화면·콘텐츠 캘린더',
       blocks: [
         { chip: '기술정보', title: '「2026 슬기로운 AI 생활」 사내 AI 활용 사례 모집', date: '10-21 · 10-28 사례 등록 시작', by: '피플팀', isNew: true,
           body: `
@@ -162,7 +162,7 @@ export default {
               <li><b>응모 대상</b> 전 직원 (인턴 포함, 협력업체 제외)</li>
               <li><b>응모 방법</b> 그룹웨어 '슬기로운 AI 생활' 게시판에 익명으로 게시글 작성 — 업무 적용, 개선 효과, AI 활용 방법을 소개</li>
             </ul>
-            <p class="m" style="margin-top:10px"><b>10/28~11/02 등록된 사례 (18건)</b></p>
+            <p class="m" style="margin-top:10px"><b>10/28~11/03 등록된 사례 (19건)</b></p>
             <ul>
               <li>[업무 비서와 반복 작업 자동화] 받은 메일에서 회신할 것만 골라 주고, 사내 규정도 답해 주는 업무 비서 Sure Assistant</li>
               <li>[업무 비서와 반복 작업 자동화] 근무 현황은 한눈에, 시간 계산은 자동으로</li>
@@ -181,6 +181,8 @@ export default {
               <li>[문서와 발표 자료] "스킬 하나로 리뷰 준비 시간 1/10" — 역대급 AI 활용법 [짚 : 핵심만 간결하게] <span class="m">11-02</span></li>
               <li>[문서와 발표 자료] 그때 만든 그 보고서… 뭐였더라? 기존 보고자료를 찾아 새 보고서로 엮고 AI 수정까지! &lt;Power Point Report Searcher&gt; <span class="m">11-02</span></li>
               <li>[자료 조사와 지식 검색] 해피런치 메뉴 추천 <span class="m">11-02</span></li>
+              <li>[자유 주제] 근태·퇴근 버스·휴가 신청·결재 서류까지, 사내의 일을 한 앱에서! <span class="m">11-02</span></li>
+              <li>[자유 주제] 징검다리, 남은 연차로 가장 길게 쉬는 날 찾기 <span class="m">11-03</span></li>
               <li>[개발과 검증] [앞뒤맞춤] 산출물끼리 안 맞는 번호와 숫자를 제출 전에 먼저 찾아요 <span class="m">11-02</span></li>
             </ul>`,
           links: [['슬기로운 AI 생활 게시판 →', 'https://gw.suresofttech.com/app/board/411']] },
