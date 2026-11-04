@@ -142,7 +142,7 @@ export default {
           body: `<p class="m">이번 기간 새 글 없음</p>`,
           links: [['회사 생활 가이드 게시판 (총 21건) →', 'https://gw.suresofttech.com/app/board/48']] },
 
-        { chip: '3.2 나머지', title: '회사 홍보 자료', date: '11-03', by: '강은빈 사원', isNew: true,
+        { chip: '3.2 나머지', title: '회사 홍보 자료', date: '11-03', by: '강은빈 사원',
           body: `<ul><li>[회사 소개] 슈어소프트테크 회사소개 영상</li></ul>
             <p class="m">문의 · 기술지원 · SW/도서는 이번 기간 새 글 없음</p>`,
           links: [['회사 홍보 자료', 'https://gw.suresofttech.com/app/board/53'],
@@ -155,7 +155,7 @@ export default {
     /* ============================ 4. 기술정보·커뮤니티 ============================ */
     {
       id: 4, title: '기술정보·커뮤니티', short: '기술정보', sub: 'AI 사례 · 칭찬',
-      desc: '슬기로운 AI 생활 사례 20건 등록 · Agent Catalog·AIV Lab 세미나 공유 · 칭찬 · 11월 슈구리 배경화면·콘텐츠 캘린더',
+      desc: '슬기로운 AI 생활 사례 22건 등록 · Agent Catalog·AIV Lab 세미나 공유 · 칭찬 · 11월 슈구리 배경화면·콘텐츠 캘린더',
       blocks: [
         { chip: '기술정보', title: '「2026 슬기로운 AI 생활」 사내 AI 활용 사례 모집', date: '10-21 · 10-28 사례 등록 시작', by: '피플팀', isNew: true,
           body: `
@@ -164,8 +164,9 @@ export default {
               <li><b>응모 대상</b> 전 직원 (인턴 포함, 협력업체 제외)</li>
               <li><b>응모 방법</b> 그룹웨어 '슬기로운 AI 생활' 게시판에 익명으로 게시글 작성 — 업무 적용, 개선 효과, AI 활용 방법을 소개</li>
             </ul>
-            <p class="m" style="margin-top:10px"><b>10/28~11/04 등록된 사례 (20건)</b></p>
+            <p class="m" style="margin-top:10px"><b>10/28~11/04 등록된 사례 (22건)</b></p>
             <ul>
+              <li>[개발과 검증] 아직도 스킬 직접 만드세요? 깃허브엔 이미 다 있습니다 <span class="m">11-04</span></li>
               <li>[개발과 검증] 이젠 판정도 AI한테 맡겨보나? STATIC 오미탐 판정 스킬 <span class="m">11-04</span></li>
               <li>[업무 비서와 반복 작업 자동화] 받은 메일에서 회신할 것만 골라 주고, 사내 규정도 답해 주는 업무 비서 Sure Assistant</li>
               <li>[업무 비서와 반복 작업 자동화] 근무 현황은 한눈에, 시간 계산은 자동으로</li>
