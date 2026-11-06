@@ -3,8 +3,8 @@
 // body 는 HTML 문자열(백틱)입니다. 사용 가능한 CSS 클래스는 build.mjs 의 <style> 참고.
 
 export default {
-  issued: '2026-11-05',          // 발행일 (YYYY-MM-DD)
-  range: '10.06 ~ 11.05',      // 다루는 기간 표시용
+  issued: '2026-11-06',          // 발행일 (YYYY-MM-DD)
+  range: '10.07 ~ 11.06',      // 다루는 기간 표시용
   source: '슈어소프트 그룹웨어 전사 게시판',
 
   // 마감/일정. date 는 마감(종료)일 ISO. 지난 일정은 페이지에서 자동으로 숨겨집니다.
@@ -27,16 +27,16 @@ export default {
   cards: [
     { tier: 1, label: '공지사항 · 재무톡톡', title: '11월 지급일정 안내', sub: '재무기획실 접수마감 기준 · 놓치지 마세요',
       rows: [
-        { k: '11/05 목', v: '임직원 경비 접수·10월 비용 마감', hot: true },
-        { k: '11/09 월', v: '거래처 대금(2차) 접수마감' },
+        { k: '11/09 월', v: '거래처 대금(2차) 접수마감', hot: true },
         { k: '11/16 월', v: '경조금·동호회비·야근교통비 지급' },
         { k: '11/23 월', v: '개인경비·출장여비 등 지급' },
+        { k: '11/30 월', v: '거래처 대금(3차) 지급' },
       ] },
-    { tier: 1, label: '공지사항 · 주간메뉴', title: '이번 주 점심', sub: '11/05 (목) 오늘의 점심',
+    { tier: 1, label: '공지사항 · 주간메뉴', title: '이번 주 점심', sub: '11/06 (금) 오늘의 점심',
       bullets: [
-        'A · 고사리육개장',
-        'B · 부타동',
-        '샐러드 t/o · 두부텐더샐러드',
+        'A · 숙주간장불고기',
+        'B · 마제덮밥',
+        '샐러드 t/o · 시저샐러드',
       ],
       foot: '이번 주 전체 식단은 뉴스레터 본문에서 볼 수 있어요' },
     { tier: 4, label: '기술정보 · 슬기로운 AI 생활', title: 'AI 활용 사례 접수 중', sub: '혼자 쓰기 아까운 AI 활용법, 나눠 주세요',
@@ -57,7 +57,7 @@ export default {
     /* ============================ 1. 공지사항 ============================ */
     {
       id: 1, title: '공지사항', short: '공지사항', sub: '공지 · 재무 · 식단',
-      desc: '10월 비용·매입 마감 제출 11/05 · 11월 지급일정 · 11/05 오늘 식단(11/02 주) · 경조사·인사발령',
+      desc: '11월 지급일정(거래처 대금 11/09 접수마감) · 11/06 오늘 식단(11/02 주) · 경조사·인사발령',
       showDeadlines: true,
       blocks: [
         { anchor: '1.1 공지', chip: '1.1 공지', title: '공지',
@@ -103,10 +103,10 @@ export default {
             </div>`,
           links: [['주간식단표 원문(PDF) →', 'https://gw.suresofttech.com/app/board/380/post/4192']] },
 
-        { anchor: '1.4 나머지', chip: '1.4 나머지', half: true, title: '인사발령', date: '10-06 ~ 10-16',
+        { anchor: '1.4 나머지', chip: '1.4 나머지', half: true, title: '인사발령', date: '10-16',
           body: `
-            <div class="tags"><span>퇴직 1</span><span>휴직 1</span></div>
-            <p class="m">기간 내 등록 2건</p>`,
+            <div class="tags"><span>퇴직 1</span></div>
+            <p class="m">기간 내 등록 1건</p>`,
           links: [['인사발령 게시판 →', 'https://gw.suresofttech.com/app/board/41']] },
 
         { chip: '1.4 나머지', half: true, title: '경조사',
@@ -114,7 +114,6 @@ export default {
             <ul>
               <li>제어기개발팀 원찬주 전임 조부상 <span class="m">10-21</span></li>
               <li>컬쳐앤인프라팀 하새은 사원 결혼식 <span class="m">10-12</span></li>
-              <li>모빌리티솔루션6팀 신재욱 팀장 결혼식 <span class="m">10-06</span></li>
             </ul>`,
           links: [['경조사 게시판 →', 'https://gw.suresofttech.com/app/board/43']] },
       ],
@@ -155,7 +154,7 @@ export default {
     /* ============================ 4. 기술정보·커뮤니티 ============================ */
     {
       id: 4, title: '기술정보·커뮤니티', short: '기술정보', sub: 'AI 사례 · 칭찬',
-      desc: '슬기로운 AI 생활 사례 24건 등록(11/05 2건 추가) · Agent Catalog·AIV Lab 세미나 공유 · 칭찬 · 11월 슈구리 배경화면·콘텐츠 캘린더',
+      desc: '슬기로운 AI 생활 사례 25건 등록(11/05 3건 추가) · Agent Catalog·AIV Lab 세미나 공유 · 칭찬 · 11월 슈구리 배경화면·콘텐츠 캘린더',
       blocks: [
         { chip: '기술정보', isNew: true, title: '「2026 슬기로운 AI 생활」 사내 AI 활용 사례 모집', date: '10-21 · 10-28 사례 등록 시작', by: '피플팀',
           body: `
@@ -164,8 +163,9 @@ export default {
               <li><b>응모 대상</b> 전 직원 (인턴 포함, 협력업체 제외)</li>
               <li><b>응모 방법</b> 그룹웨어 '슬기로운 AI 생활' 게시판에 익명으로 게시글 작성 — 업무 적용, 개선 효과, AI 활용 방법을 소개</li>
             </ul>
-            <p class="m" style="margin-top:10px"><b>10/28~11/05 등록된 사례 (24건)</b></p>
+            <p class="m" style="margin-top:10px"><b>10/28~11/05 등록된 사례 (25건)</b></p>
             <ul>
+              <li>[개발과 검증] 자동 위배 수정부터 재검증까지, STATIC EE와 함께 쓰는 정적 검증 AI Assistant <span class="m">11-05</span></li>
               <li>[개발과 검증] 단위 검증을 손쉽게!! 검증을 부탁해 (CT 보조 도구) <span class="m">11-05</span></li>
               <li>[자유 주제] 같은 오피스, 다른 팀, 비밀 친구 — 사내 친구 찾기 'OFFI-SH!(오피쉿)'를 소개합니다 <span class="m">11-05</span></li>
               <li>[개발과 검증] 안 돌려 보고 “완료!”? Claude 버릇 고치는 오픈소스 스킬 3종 <span class="m">11-04</span></li>
