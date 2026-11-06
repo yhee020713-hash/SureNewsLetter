@@ -156,7 +156,7 @@ export default {
       id: 4, title: '기술정보·커뮤니티', short: '기술정보', sub: 'AI 사례 · 칭찬',
       desc: '슬기로운 AI 생활 사례 25건 등록(11/05 3건 추가) · Agent Catalog·AIV Lab 세미나 공유 · 칭찬 · 11월 슈구리 배경화면·콘텐츠 캘린더',
       blocks: [
-        { chip: '기술정보', isNew: true, title: '「2026 슬기로운 AI 생활」 사내 AI 활용 사례 모집', date: '10-21 · 10-28 사례 등록 시작', by: '피플팀',
+        { chip: '기술정보', title: '「2026 슬기로운 AI 생활」 사내 AI 활용 사례 모집', date: '10-21 · 10-28 사례 등록 시작', by: '피플팀',
           body: `
             <ul>
               <li><b>접수 기간</b> 2026.10.28(수) ~ 11.18(수)</li>
